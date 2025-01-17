@@ -1,0 +1,55 @@
+---
+
+---
+
+<section>
+  <div
+    class="relative w-[100vw] h-[45rem] md:h-[40rem] flex flex-col justify-end items-center"
+  >
+    {/* Capa de fondo con opacidad */}
+    <div class="absolute inset-0 z-10 bg-black bg-opacity-65"></div>
+
+    {/* Contenido de texto */}
+    <div class="relative z-20 font-serif text-white xl:w-[1200px]">
+      <div class="flex flex-col gap-10">
+        <div class="">
+          <h1 class="text-5xl md:text-7xl font-bold text-white">
+            Muebleria el Fiorentino
+          </h1>
+          <h2 class="text-4xl md:text-4xl font-bold text-white">
+            Diseñamos muebles únicos para<br> transformar tu hogar o empresa
+          </h2>
+          <h3 class="text-3xl md:text-sm font-bold text-white">
+            Muebles personalizados con materiales de alta calidad
+          </h3>
+        </div>
+        <div class="flex flex-col gap-10">
+          <div>
+            <button>goform</button>
+            <!-- <div class='mx-10'><ButtonGoForm></ButtonGoForm></div> -->
+          </div>
+          <div>
+            <div class="mb-10 px-5 text-[13px] md:text-[16px]">
+              <div class="flex items-center">
+                {/* <h3 class="mr-2 text-white">| Icono</h3> */}
+                <h3 class="text-white">| 3, 4 y 5 de noviembre</h3>
+              </div>
+              <div class="flex items-center">
+                {/* <h3 class="mr-2 text-white">| Icono</h3> */}
+                <h3 class="text-white">| Ruta D409 #4831, Pan de azucar</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute inset-0 z-0 bg-fixed bg-cover bg-welcome bg-bottom">
+    </div>
+  </div>
+</section>
+<style>
+  .bg-welcome {
+    background-image: url("indexImage/WelcomeImage.webp");
+  }
+</style>
