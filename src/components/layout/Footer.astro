@@ -1,0 +1,78 @@
+---
+
+---
+
+<footer class="bg-neutral-900 min-h-[5rem] mg-20 pb-8 md:pb-0">
+  <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <a
+        href={"/"}
+        class="flex z-50 font-title items-center text-2xl uppercase"
+      >
+        <img alt="logo" class="w-10" src={`/indexImage/Logo.png`} /></a
+      >
+      <p class="text-white">Muebleria El Fiorentino</p>
+    </div>
+    <div>
+      <ul
+        class="flex gap-5 flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400 pt-5 md:pt-0"
+      >
+        {
+          [
+            ["mas-pedidos", "Mas pedidos"],
+            ["catalogo", "Catalogo"],
+            ["nosotros", "Nosotros"],
+          ].map((nav) => (
+            <li>
+              <a
+                data-info={nav[0]}
+                class="nav-button duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer "
+              >
+                {nav[1]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="pt-3 flex gap-3 items-center">
+        <p class="font-title text-white font-bold uppercase">
+          Síguenos en redes sociales
+        </p>
+        <a
+          href={"https://www.instagram.com/muebles_elfiorentino/"}
+          target="_blank"
+          ><img
+            src={"/socialmedia/Instagram.svg"}
+            width={27}
+            height={27}
+            alt="Logo Instagram"
+          /></a
+        >
+        <a
+          href={"https://www.facebook.com/p/Muebler%C3%ADa-El-Fiorentino-100032893551927/?locale=es_LA"}
+          target="_blank"
+          ><img
+            src={"/socialmedia/Facebook.svg"}
+            width={27}
+            height={27}
+            alt="Logo Facebook"
+          /></a
+        >
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navBtn = document.querySelectorAll(".nav-button");
+  if (navBtn)
+    navBtn.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        const target = btn.getAttribute("data-info");
+        document
+          .querySelector(`#${target}`)
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  //
+</script>

@@ -1,5 +1,87 @@
 ---
+import {
+  dataHomeCatalog,
+  dataHomeTwoCatalog,
+} from "../../services/getProducts";
+const formater = Intl.NumberFormat("es-ES");
 ---
-<section>
-    
+
+<section id="catalogo" class="xl:w-[1200px] m-auto">
+  <h2>Productos</h2>
+  <div>
+    <div>
+      <h1 class="text-3xl pt-3">Hogar</h1>
+      <div
+        class="pt-8 px-5 lg:px-0 grid grid-cols-1 lg:grid-cols-4 md:gap-5"
+        id="container-more-request"
+      >
+        {
+          dataHomeCatalog.map((product) => {
+            const photos = product.photos as any;
+            return (
+              <div>
+                <img
+                  class="  lg:w-[350px] w-[100vw] h-[80vw] lg:h-[300px] "
+                  src={import.meta.env.URL_IMAGES + photos.urls[0]}
+                />
+                <h3>{product.name}</h3>
+                <h3>desde: ${formater.format(product.price)}</h3>
+                <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+    <div>
+      <h1 class="text-3xl pt-3">cocina / closet</h1>
+      <div
+        class="pt-8 px-5 lg:px-0 grid grid-cols-1 lg:grid-cols-2 md:gap-5"
+        id="container-more-request"
+      >
+        {
+          dataHomeTwoCatalog.map((product) => {
+            const photos = product.photos as any;
+            return (
+              <div>
+                <img
+                  class=" w-[100vw] h-[80vw] lg:h-[350px] "
+                  src={import.meta.env.URL_IMAGES + photos.urls[0]}
+                />
+                <h3>{product.name}</h3>
+                <h3>desde: ${formater.format(product.price)}</h3>
+                <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+    <div>
+      <div>
+        <h1 class="text-3xl pt-3">Instituciones y empresas</h1>
+        <div
+          class="pt-8 px-5 lg:px-0 grid grid-cols-1 lg:grid-cols-4 md:gap-5"
+          id="container-more-request"
+        >
+          {
+            dataHomeCatalog.map((product) => {
+              const photos = product.photos as any;
+              return (
+                <div>
+                  <img
+                    class="  lg:w-[350px] w-[100vw] h-[80vw] lg:h-[300px] "
+                    src={import.meta.env.URL_IMAGES + photos.urls[0]}
+                  />
+                  <h3>{product.name}</h3>
+                  <h3>desde: ${formater.format(product.price)}</h3>
+                  <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

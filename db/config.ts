@@ -9,12 +9,12 @@ const Products = defineTable({
     price: column.number(),
     description: column.text(),
     photos: column.json(),
-    tones: column.json() ,
+    tones: column.json(),
     view: column.number(),
     type: column.boolean(),
   },
 });
 
 export default defineDb({
-  tables: { Products, },
+  tables: { Products },
 });
