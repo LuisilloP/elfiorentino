@@ -4,7 +4,7 @@
 
 <nav
   id="navBar"
-  class={`ease-out duration-500 flex flex-col md:flex-row justify-between fixed w-full z-30 top-0 start-0 border-b border-gray-600 px-[10%] pt-4 text-white font-barlow pb-5`}
+  class={`ease-out duration-500 flex flex-col md:flex-row justify-between fixed w-full z-30 top-0 start-0 border-b border-gray-600 px-[10%] pt-4  text-white font-barlow pb-5 `}
 >
   <div class="flex
   justify-between
@@ -12,13 +12,17 @@
   md:w-auto
   items-center">
     <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src={import.meta.env.IMAGE_LOGO} class="h-28" alt="El Fiorentino" />
+      <img
+        src={import.meta.env.IMAGE_LOGO}
+        class="h-16 lg:h-28"
+        alt="El Fiorentino"
+      />
     </a>
     <a
       id="menu-button"
       data-collapse-toggle="navbar-sticky"
       data-nav-toggle="#navbar-sticky"
-      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      class="ease-out duration-500 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       aria-controls="navbar-sticky"
       aria-expanded="false"
     >
@@ -45,7 +49,7 @@
     id="navbar-sticky"
   >
     <ul
-      class="flex flex-col p-4 md:p-0 mt-4 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+      class="flex flex-col gap-4 lg:p-4 md:p-0 mt-8 lg:mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
     >
       {
         [
@@ -65,14 +69,8 @@
       }
     </ul>
     <ul
-      class="flex flex-col p-4 md:p-0 mt-4 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+      class="flex gap-4 md:gap-0 lg:p-4 md:p-0 mt-8 lg:mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
     >
-      <li>
-        <a
-          class="nav-button duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer"
-        >
-        </a>
-      </li>
       <li>
         <a
           href={"https://www.instagram.com/muebles_elfiorentino/"}
@@ -111,31 +109,49 @@
   </div>
 
   <script>
+    // Obtener referencias a los elementos del DOM
     const button = document.querySelector("#menu-button");
     const menuOpen = document.querySelector("#menu-open");
     const navBtn = document.querySelectorAll(".nav-button-h");
     const navBar = document.getElementById("navBar");
-    if (button && menuOpen)
+
+    // Función para manejar el click del botón del menú
+    if (button && menuOpen) {
       button.addEventListener("click", () => {
-        menuOpen.classList.toggle("hidden");
+        navBar?.classList.add("bg-[#111111F2]"); // Asegurar que la barra de navegación tenga fondo
+        menuOpen.classList.toggle("hidden"); // Alternar visibilidad del menú
       });
-    if (navBtn)
+    }
+
+    // Función para manejar el click en botones de navegación
+    if (navBtn) {
       navBtn.forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-          const target = btn.getAttribute("data-info");
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-info"); // Obtener el ID del destino
           document
             .querySelector(`#${target}`)
-            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            ?.scrollIntoView({ behavior: "smooth", block: "start" }); // Scroll suave al destino
         });
       });
+    }
 
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY;
-      if (scrollY > 0) {
-        navBar?.classList.add("bg-[#111111F2]");
-      } else {
-        navBar?.classList.remove("bg-[#111111F2]");
-      }
+    // Detectar el scroll al cargar y en tiempo real
+    document.addEventListener("DOMContentLoaded", () => {
+      const handleScroll = () => {
+        const scrollY = window.scrollY;
+        if (scrollY > 0) {
+          navBar?.classList.add("bg-[#111111F2]"); // Añadir fondo oscuro si se ha hecho scroll
+        } else {
+          navBar?.classList.remove("bg-[#111111F2]"); // Quitar fondo si el scroll vuelve a 0
+          menuOpen?.classList.add("hidden"); // Ocultar el menú si está visible
+        }
+      };
+
+      // Verificar posición del scroll al cargar la página
+      handleScroll();
+
+      // Escuchar cambios de scroll en tiempo real
+      window.addEventListener("scroll", handleScroll);
     });
   </script>
 </nav>

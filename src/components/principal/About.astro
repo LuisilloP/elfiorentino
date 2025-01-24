@@ -3,17 +3,23 @@
 ---
 
 <section
-  class="grid grid-cols-1 lg:grid-cols-2 lg:max-w-[1200px] m-auto px-5 g:px-0"
+  class="flex flex-col lg:flex-row lg:max-w-[1200px] m-auto px-5 g:px-0 font-barlow gap-4"
   id="nosotros"
 >
-  <div class="border-solid border-2 border-sky-300">
-    <img src="indexImage/About.jpg" class="relative lg:right-10 lg:bottom-10" />
+  <div class="border-solid border-2 border-sky-300 rounded-sm">
+    <img
+      src="indexImage/About.jpg"
+      class="relative lg:right-10 lg:bottom-10 w-[100%] min-h-[350px] lg:h-[600px] rounded-sm"
+    />
   </div>
 
-  <div>
-    <h2>Nosotros</h2>
-    <h4>El Fiorentino</h4>
-    <p>
+  <div class="flex flex-col gap-2 lg:w-[50%]">
+    <div class="justify-center flex flex-col">
+      <h1 class="text-3xl font-bold text-neutral-800">Nosotros</h1>
+      <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
+    </div>
+    <h4 class="text-neutral-800 font-medium">El Fiorentino</h4>
+    <p class="text-neutral-500">
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, labore
       quidem saepe aliquid sed exercitationem doloremque non cumque consectetur
       suscipit accusamus similique totam, molestiae nisi dolores? Ducimus
@@ -24,3 +30,30 @@
     </p>
   </div>
 </section>
+<!-- <section
+  class="grid grid-cols-1 lg:grid-cols-2 lg:max-w-[1200px] m-auto px-5 g:px-0 font-barlow gap-4"
+  id="nosotros"
+>
+  <div class="border-solid border-2 border-sky-300">
+    <img src="indexImage/About.jpg" class="relative lg:right-10 lg:bottom-10" />
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <div class="justify-center flex flex-col">
+      <h1 class="text-3xl font-bold text-neutral-800">Nosotros</h1>
+      <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
+    </div>
+    <h4 class="text-neutral-800 font-medium">El Fiorentino</h4>
+    <p class="text-neutral-500">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, labore
+      quidem saepe aliquid sed exercitationem doloremque non cumque consectetur
+      suscipit accusamus similique totam, molestiae nisi dolores? Ducimus
+      consequatur debitis pariatur! Minima omnis pariatur, dignissimos,
+      consequuntur accusantium incidunt officiis sapiente animi perferendis ad
+      culpa enim magnam ea laboriosam quam aliquid odit. Nisi unde optio
+      repudiandae facilis dolore quidem quasi, enim laboriosam.
+    </p>
+  </div>
+  
+</section>
+ -->

@@ -3,55 +3,53 @@ import {
   dataHomeCatalog,
   dataHomeTwoCatalog,
 } from "../../services/getProducts";
+import ProductCard from "../products/ProductCard.astro";
 const formater = Intl.NumberFormat("es-ES");
 ---
 
-<section id="catalogo" class="xl:w-[1200px] m-auto">
-  <h2>Productos</h2>
+<section id="catalogo" class="xl:w-[1200px] m-auto font-barlow px-5">
+  <div class="items-center justify-center flex flex-col">
+    <h1 class="text-3xl font-bold text-neutral-800">Mas Pedidos</h1>
+    <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
+  </div>
   <div>
     <div>
-      <h1 class="text-3xl pt-3">Hogar</h1>
+      <h1 class="text-2xl pt-3 font-semibold text-blue-500">Hogar</h1>
       <div
-        class="pt-8 px-5 lg:px-0 grid grid-cols-1 lg:grid-cols-4 md:gap-5"
+        class="pt-4 lg:px-0 grid grid-cols-1 lg:grid-cols-4 md:gap-5"
         id="container-more-request"
       >
         {
           dataHomeCatalog.map((product) => {
             const photos = product.photos as any;
             return (
-              <div>
-                <img
-                  class="  lg:w-[350px] w-[100vw] h-[80vw] lg:h-[300px] "
-                  src={import.meta.env.URL_IMAGES + photos.urls[0]}
-                />
-                <h3>{product.name}</h3>
-                <h3>desde: ${formater.format(product.price)}</h3>
-                <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
-              </div>
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                photos={photos}
+                section="HI"
+              />
             );
           })
         }
       </div>
     </div>
     <div>
-      <h1 class="text-3xl pt-3">cocina / closet</h1>
+      <h1 class="text-3xl pt-3 font-semibold text-blue-500">cocina / closet</h1>
       <div
-        class="pt-8 px-5 lg:px-0 grid grid-cols-1 lg:grid-cols-2 md:gap-5"
+        class="pt-4 lg:px-0 grid grid-cols-1 lg:grid-cols-2 md:gap-5"
         id="container-more-request"
       >
         {
           dataHomeTwoCatalog.map((product) => {
             const photos = product.photos as any;
             return (
-              <div>
-                <img
-                  class=" w-[100vw] h-[80vw] lg:h-[350px] "
-                  src={import.meta.env.URL_IMAGES + photos.urls[0]}
-                />
-                <h3>{product.name}</h3>
-                <h3>desde: ${formater.format(product.price)}</h3>
-                <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
-              </div>
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                photos={photos}
+                section="CC"
+              />
             );
           })
         }
@@ -59,24 +57,23 @@ const formater = Intl.NumberFormat("es-ES");
     </div>
     <div>
       <div>
-        <h1 class="text-3xl pt-3">Instituciones y empresas</h1>
+        <h1 class="text-2xl pt-3 font-semibold text-blue-500">
+          Instituciones y empresas
+        </h1>
         <div
-          class="pt-8 px-5 lg:px-0 grid grid-cols-1 lg:grid-cols-4 md:gap-5"
+          class="pt-4 lg:px-0 grid grid-cols-1 lg:grid-cols-4 md:gap-5"
           id="container-more-request"
         >
           {
             dataHomeCatalog.map((product) => {
               const photos = product.photos as any;
               return (
-                <div>
-                  <img
-                    class="  lg:w-[350px] w-[100vw] h-[80vw] lg:h-[300px] "
-                    src={import.meta.env.URL_IMAGES + photos.urls[0]}
-                  />
-                  <h3>{product.name}</h3>
-                  <h3>desde: ${formater.format(product.price)}</h3>
-                  <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
-                </div>
+                <ProductCard
+                  name={product.name}
+                  price={product.price}
+                  photos={photos}
+                  section="HI"
+                />
               );
             })
           }
