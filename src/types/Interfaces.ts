@@ -4,7 +4,7 @@ interface Product {
   price: number;
   description: string;
   photos: { urls: string[] };
-  tones: { urls: string[] };
+  tones: { colors: string[] };
   view: number;
   type: boolean;
 }

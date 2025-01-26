@@ -1,0 +1,30 @@
+---
+const { type, name } = Astro.props;
+---
+
+<div class="relative">
+  <input
+    type={type}
+    min="1"
+    max="1000"
+    id="hs-floating-underline-input-number"
+    class="peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none
+  focus:pt-6
+  focus:pb-2
+  [&:not(:placeholder-shown)]:pt-6
+  [&:not(:placeholder-shown)]:pb-2"
+    placeholder="20"
+  />
+  <label
+    for="hs-floating-underline-input-number"
+    class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-gray-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none
+    peer-focus:scale-90
+    peer-focus:translate-x-0.5
+    peer-focus:-translate-y-1.5
+    peer-focus:text-gray-500
+    peer-[:not(:placeholder-shown)]:scale-90
+    peer-[:not(:placeholder-shown)]:translate-x-0.5
+    peer-[:not(:placeholder-shown)]:-translate-y-1.5"
+    >{name}</label
+  >
+</div>

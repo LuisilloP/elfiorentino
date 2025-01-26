@@ -5,6 +5,7 @@ import type { Product } from "../../types/Interfaces.ts";
 import Layout from "../../layouts/Layout.astro";
 import { dataProducts } from "../../services/getProducts";
 import ArrowImage from "../../components/button/ArrowImage.astro";
+import LabelCustomize from "../../components/button/LabelCustomize.astro";
 
 const { id } = Astro.params;
 
@@ -22,13 +23,15 @@ export const getStaticPaths = (() => {
   }));
 }) satisfies GetStaticPaths;
 
-const { description, price, photos, name } = product;
+const { description, price, photos, name, tones } = product;
 
 // src={`/productphotos/${id}/${img}`}
 ---
 
 <Layout title={name}>
-  <section class="pt-40 px-5 flex lg:w-[1200px] m-auto gap-9">
+  <section
+    class="pt-40 md:pt-60 px-5 grid lg:grid-cols-2 lg:w-[1200px] min-h-[800px] m-auto gap-9 font-barlow"
+  >
     <div
       class="relative overflow-hidden md:w-[30rem] max-h-[27rem] min-h-[27rem]"
     >
@@ -56,37 +59,54 @@ const { description, price, photos, name } = product;
       </h1>
       <p class="text-lg font-nerko text-[#505050] mt-5">{description}</p>
 
-      <p class="text-lg font-nerko text-[#F05252] mt-3">
-        ${price.toLocaleString("es-ES")}
+      <p class="text-lg font-nerko mt-3">
+        Desde ${price.toLocaleString("es-ES")}
       </p>
-
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
+        <LabelCustomize type="number" name="Alto" />
+        <LabelCustomize type="number" name='Largo"' />
+        <LabelCustomize type="number" name="Ancho" />
+        <LabelCustomize type="number" name="Cajones" />
+        <select
+          class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <option selected="">Tono melamina</option>
+          {tones?.colors.map((color: string) => <option>{color}</option>)}
+        </select>
+      </div>
       <a
-        class="flex w-[100%] md:w-[30rem] bg-green-600 rounded font-nerko text-white justify-center items-center mt-5"
+        id="whatsAppBtn"
+        class="flex w-[100%] bg-[#25d366] rounded font-nerko text-white justify-center items-center mt-5"
         href={`https://wa.me/998973623?text=Hola, me interesa el producto ${product.name.replace(/[^\p{L}\p{N}\s]/gu, "")}. ¿Podrías darme más información?`}
         target="_blank"
       >
-        <img class="w-10 h-10" src="/whatsapp.png" />
+        <img class="w-10 h-10" src="/socialmedia/whatsappButton.svg" />
         Cotizar mi producto
       </a>
     </div>
   </section>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      //Slider Imagen
       const slider = document.getElementById("slider")!;
       const prevButton = document.getElementById("prev");
       const nextButton = document.getElementById("next");
+
+      //Contacto WhatsApp
+      const whatsappButton = document.getElementById("whatsAppBtn");
+      const inputs = document.querySelectorAll("input");
+      const select = document.querySelector("select");
 
       if (slider && prevButton && nextButton) {
         let index = 0;
         const totalImages = slider.children.length;
 
-        // Update the slider position
+        // Actualiza posicion de slider
         function updateSlider() {
           const offset = -index * 100;
           slider.style.transform = `translateX(${offset}%)`;
         }
-
-        // Click events for prev/next buttons
+        // Click de eventos
         prevButton.addEventListener("click", () => {
           index = index > 0 ? index - 1 : totalImages - 1;
           updateSlider();
@@ -97,7 +117,7 @@ const { description, price, photos, name } = product;
           updateSlider();
         });
 
-        // Swipe gesture support for mobile
+        // Swpiper para moviles
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -123,6 +143,35 @@ const { description, price, photos, name } = product;
           }
         }
       }
+      whatsappButton?.addEventListener("click", (event) => {
+        let allFieldsFilled = true;
+
+        // Validar inputs
+        inputs.forEach((input) => {
+          if (!input.value.trim()) {
+            allFieldsFilled = false;
+            input.classList.add("border-red-500"); // Resaltar en rojo si está vacío
+          } else {
+            input.classList.remove("border-red-500");
+          }
+        });
+
+        // Validar el select
+        if (!select?.value || select.value === "Tono melamina") {
+          allFieldsFilled = false;
+          select?.classList.add("border-red-500");
+        } else {
+          select.classList.remove("border-red-500");
+        }
+
+        // Prevenir navegación si hay campos vacíos
+        if (!allFieldsFilled) {
+          event.preventDefault();
+          alert(
+            "Por favor, rellena todos los campos antes de cotizar el producto."
+          );
+        }
+      });
     });
   </script>
 </Layout>

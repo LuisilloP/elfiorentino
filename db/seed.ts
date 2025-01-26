@@ -6,11 +6,17 @@ export default async function seed() {
   await db.insert(Products).values([
     {
       id: 1,
-      name: "comoda",
+      name: "comoda personalizada",
       price: 85000,
-      description: "lorem asdasdasdasdsa",
-      photos: { urls: ["comoda/comodaCuatroCajones.jpg","comoda/comodaCuatroCajones.jpg"] },
-      tones: {},
+      description:
+        "Crea la cómoda perfecta para tu espacio con nuestro diseño personalizable. Fabricada en melamina resistente y equipada con correderas telescópicas, ofrece durabilidad y un uso suave y cómodo. Elige las dimensiones, cantidad de cajones y color que prefieras directamente en nuestra página. Ideal para organizar ropa, accesorios o lo que necesites, adaptándose a cualquier estilo de decoración.",
+      photos: {
+        urls: [
+          "comoda/comodaCuatroCajones.jpg",
+          "comoda/comodaCuatroCajones.jpg",
+        ],
+      },
+      tones: { colors: ["blanco", "negro"] },
       view: 100,
       type: true,
     },
