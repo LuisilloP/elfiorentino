@@ -1,0 +1,128 @@
+---
+import type { GetStaticPaths } from "astro";
+import type { Product } from "../../types/Interfaces.ts";
+
+import Layout from "../../layouts/Layout.astro";
+import { dataProducts } from "../../services/getProducts";
+import ArrowImage from "../../components/button/ArrowImage.astro";
+
+const { id } = Astro.params;
+
+const product: Product | undefined = dataProducts.find(
+  (p) => p.id.toString() == id
+) as Product | undefined;
+
+if (!product) {
+  throw new Error(`Producto no encontrado: ${id}`);
+}
+
+export const getStaticPaths = (() => {
+  return dataProducts.map((product) => ({
+    params: { id: product.id.toString() }, // Asegúrate de que el ID esté en formato de cadena
+  }));
+}) satisfies GetStaticPaths;
+
+const { description, price, photos, name } = product;
+
+// src={`/productphotos/${id}/${img}`}
+---
+
+<Layout title={name}>
+  <section class="pt-40 px-5 flex lg:w-[1200px] m-auto gap-9">
+    <div
+      class="relative overflow-hidden md:w-[30rem] max-h-[27rem] min-h-[27rem]"
+    >
+      <div
+        id="slider"
+        class="flex transition-transform duration-300 ease-in-out max-h-[27rem] min-h-[27rem]
+      ."
+      >
+        {
+          photos?.urls.map((img: string) => (
+            <img
+              src={`/productImage/${img}`}
+              alt={`image-${name}`}
+              class="w-full h-auto rounded object-cover lg:w-[30rem]"
+            />
+          ))
+        }
+      </div>
+      <ArrowImage direction="left" />
+      <ArrowImage direction="right" />
+    </div>
+    <div>
+      <h1 class="text-2xl font-nerko mb-5 pt-3 text-[#282829]">
+        {product.name}
+      </h1>
+      <p class="text-lg font-nerko text-[#505050] mt-5">{description}</p>
+
+      <p class="text-lg font-nerko text-[#F05252] mt-3">
+        ${price.toLocaleString("es-ES")}
+      </p>
+
+      <a
+        class="flex w-[100%] md:w-[30rem] bg-green-600 rounded font-nerko text-white justify-center items-center mt-5"
+        href={`https://wa.me/998973623?text=Hola, me interesa el producto ${product.name.replace(/[^\p{L}\p{N}\s]/gu, "")}. ¿Podrías darme más información?`}
+        target="_blank"
+      >
+        <img class="w-10 h-10" src="/whatsapp.png" />
+        Cotizar mi producto
+      </a>
+    </div>
+  </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const slider = document.getElementById("slider")!;
+      const prevButton = document.getElementById("prev");
+      const nextButton = document.getElementById("next");
+
+      if (slider && prevButton && nextButton) {
+        let index = 0;
+        const totalImages = slider.children.length;
+
+        // Update the slider position
+        function updateSlider() {
+          const offset = -index * 100;
+          slider.style.transform = `translateX(${offset}%)`;
+        }
+
+        // Click events for prev/next buttons
+        prevButton.addEventListener("click", () => {
+          index = index > 0 ? index - 1 : totalImages - 1;
+          updateSlider();
+        });
+
+        nextButton.addEventListener("click", () => {
+          index = index < totalImages - 1 ? index + 1 : 0;
+          updateSlider();
+        });
+
+        // Swipe gesture support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slider.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        slider.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipeGesture();
+        });
+
+        function handleSwipeGesture() {
+          const swipeThreshold = 50;
+          if (touchEndX < touchStartX - swipeThreshold) {
+            index = index < totalImages - 1 ? index + 1 : 0;
+            updateSlider();
+          }
+
+          if (touchEndX > touchStartX + swipeThreshold) {
+            index = index > 0 ? index - 1 : totalImages - 1;
+            updateSlider();
+          }
+        }
+      }
+    });
+  </script>
+</Layout>

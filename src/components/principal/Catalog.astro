@@ -4,7 +4,6 @@ import {
   dataHomeTwoCatalog,
 } from "../../services/getProducts";
 import ProductCard from "../products/ProductCard.astro";
-const formater = Intl.NumberFormat("es-ES");
 ---
 
 <section id="catalogo" class="xl:w-[1200px] m-auto font-barlow px-5 pt-8">
@@ -25,6 +24,7 @@ const formater = Intl.NumberFormat("es-ES");
             return (
               <ProductCard
                 name={product.name}
+                id={product.id}
                 price={product.price}
                 photos={photos}
                 section="HI"
@@ -45,6 +45,7 @@ const formater = Intl.NumberFormat("es-ES");
             const photos = product.photos as any;
             return (
               <ProductCard
+                id={product.id}
                 name={product.name}
                 price={product.price}
                 photos={photos}
@@ -69,6 +70,7 @@ const formater = Intl.NumberFormat("es-ES");
               const photos = product.photos as any;
               return (
                 <ProductCard
+                  id={product.id}
                   name={product.name}
                   price={product.price}
                   photos={photos}

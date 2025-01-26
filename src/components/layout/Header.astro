@@ -11,9 +11,9 @@
   w-[100%]
   md:w-auto
   items-center">
-    <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img
-        src={import.meta.env.IMAGE_LOGO}
+        src="/indexImage/Logo.png"
         class="h-16 lg:h-28"
         alt="El Fiorentino"
       />
@@ -137,20 +137,21 @@
 
     // Detectar el scroll al cargar y en tiempo real
     document.addEventListener("DOMContentLoaded", () => {
+     
       const handleScroll = () => {
         const scrollY = window.scrollY;
         if (scrollY > 0) {
-          navBar?.classList.add("bg-[#111111F2]"); // Añadir fondo oscuro si se ha hecho scroll
-        } else {
-          navBar?.classList.remove("bg-[#111111F2]"); // Quitar fondo si el scroll vuelve a 0
-          menuOpen?.classList.add("hidden"); // Ocultar el menú si está visible
+          navBar?.classList.add("bg-[#111111F2]"); 
+        }else if( document.title!="El Fiorentino")
+        {
+          navBar?.classList.add("bg-[#111111F2]"); 
+        } 
+        else {
+          navBar?.classList.remove("bg-[#111111F2]");
+          menuOpen?.classList.add("hidden"); 
         }
       };
-
-      // Verificar posición del scroll al cargar la página
       handleScroll();
-
-      // Escuchar cambios de scroll en tiempo real
       window.addEventListener("scroll", handleScroll);
     });
   </script>

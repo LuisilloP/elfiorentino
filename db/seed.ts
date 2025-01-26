@@ -9,7 +9,7 @@ export default async function seed() {
       name: "comoda",
       price: 85000,
       description: "lorem asdasdasdasdsa",
-      photos: { urls: ["comoda/comodaCuatroCajones.jpg"] },
+      photos: { urls: ["comoda/comodaCuatroCajones.jpg","comoda/comodaCuatroCajones.jpg"] },
       tones: {},
       view: 100,
       type: true,

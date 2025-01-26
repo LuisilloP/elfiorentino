@@ -1,23 +1,21 @@
 ---
 // Props que recibirá el componente
-export interface ProductCardProps {
-  name: string;
-  price: number;
+// export interface ProductCardProps {
+//   name: string;
+//   price: number;
+//   photos: {
+//     urls: string[];
+//   };
+// }
 
-  photos: {
-    urls: string[];
-  };
-}
-
-const { name, price, photos, section } = Astro.props;
+const { name, price, photos, section, id } = Astro.props;
 const formater = Intl.NumberFormat("es-ES");
 ---
 
-<a class="font-bold cursor-pointer" href="">
+<a class="font-bold cursor-pointer" href={`/products/${id}`}>
   <img
     class={`w-[100vw] h-[80vw] rounded-md ${section == "MR" ? " lg:h-[350px] " : section == "CC" ? "lg:w-[100vw] lg:h-[350px]" : "lg:h-[300px]"}`}
     src={import.meta.env.URL_IMAGES + photos.urls[0]}
-    0
     alt={name}
   />
   <h3 class="text-neutral-500 text-xl pt-2">

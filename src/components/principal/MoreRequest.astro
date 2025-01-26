@@ -1,7 +1,6 @@
 ---
 import { dataMoreRequest } from "../../services/getProducts";
 import ProductCard from "../products/ProductCard.astro";
-const formater = Intl.NumberFormat("es-ES");
 ---
 
 <section class="xl:w-[1200px] m-auto pt-8 font-barlow lg:px-5" id="mas-pedidos">
@@ -23,6 +22,7 @@ const formater = Intl.NumberFormat("es-ES");
               price={product.price}
               photos={photos}
               section="MR"
+              id={product.id}
             />
           );
         })

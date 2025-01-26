@@ -7,4 +7,4 @@ const dataHomeCatalog = dataProducts.filter(
 const dataHomeTwoCatalog = dataProducts.filter(
   (product) => product.id == 2 || product.id == 3,
 );
-export { dataMoreRequest, dataHomeCatalog, dataHomeTwoCatalog };
+export { dataMoreRequest, dataHomeCatalog, dataHomeTwoCatalog,dataProducts };
