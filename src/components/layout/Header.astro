@@ -45,7 +45,7 @@
   </div>
   <div
     id="menu-open"
-    class="hidden items-center justify-between w-full md:flex md:w-auto md:order-1 navbar gap-5"
+    class="ease-out duration-500 hidden items-center justify-between w-full md:flex md:w-auto md:order-1 navbar gap-5"
     id="navbar-sticky"
   >
     <ul
@@ -60,7 +60,7 @@
           <li>
             <a
               data-info={nav[0]}
-              class="nav-button duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer "
+              class="nav-button-h duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer "
             >
               {nav[1]}
             </a>
@@ -110,6 +110,7 @@
 
   <script>
     // Obtener referencias a los elementos del DOM
+
     const button = document.querySelector("#menu-button");
     const menuOpen = document.querySelector("#menu-open");
     const navBtn = document.querySelectorAll(".nav-button-h");
@@ -118,8 +119,8 @@
     // Función para manejar el click del botón del menú
     if (button && menuOpen) {
       button.addEventListener("click", () => {
-        navBar?.classList.add("bg-[#111111F2]"); // Asegurar que la barra de navegación tenga fondo
-        menuOpen.classList.toggle("hidden"); // Alternar visibilidad del menú
+        navBar?.classList.add("bg-[#111111F2]");
+        menuOpen.classList.toggle("hidden");
       });
     }
 
@@ -127,32 +128,62 @@
     if (navBtn) {
       navBtn.forEach((btn) => {
         btn.addEventListener("click", () => {
-          const target = btn.getAttribute("data-info"); // Obtener el ID del destino
-          document
-            .querySelector(`#${target}`)
-            ?.scrollIntoView({ behavior: "smooth", block: "start" }); // Scroll suave al destino
+          const target = btn.getAttribute("data-info"); //  ID del destino
+          if (window.location.pathname !== "/") {
+            // Guardar el destino en el almacenamiento local
+            localStorage.setItem("scrollTarget", target || "");
+
+            // Redirigir al index
+            window.location.href = "/";
+            return; // Detener ejecución hasta redirigir
+          }
+
+          menuOpen?.classList.toggle("hidden");
+
+          const targetElement = document.querySelector(`#${target}`);
+
+          if (targetElement) {
+            const offset = -110; // Ajusta este valor según necesites
+            const yOffset =
+              targetElement.getBoundingClientRect().top +
+              window.pageYOffset +
+              offset;
+            window.scrollTo({ top: yOffset, behavior: "smooth" });
+          }
         });
       });
     }
 
     // Detectar el scroll al cargar y en tiempo real
     document.addEventListener("DOMContentLoaded", () => {
-     
       const handleScroll = () => {
         const scrollY = window.scrollY;
         if (scrollY > 0) {
-          navBar?.classList.add("bg-[#111111F2]"); 
-        }else if( document.title!="El Fiorentino")
-        {
-          navBar?.classList.add("bg-[#111111F2]"); 
-        } 
-        else {
+          navBar?.classList.add("bg-[#111111F2]");
+        } else if (document.title != "El Fiorentino") {
+          navBar?.classList.add("bg-[#111111F2]");
+        } else {
           navBar?.classList.remove("bg-[#111111F2]");
-          menuOpen?.classList.add("hidden"); 
+          menuOpen?.classList.add("hidden");
         }
       };
       handleScroll();
       window.addEventListener("scroll", handleScroll);
+
+      //local storage
+      const scrollTarget = localStorage.getItem("scrollTarget");
+      if (scrollTarget) {
+        const targetElement = document.querySelector(`#${scrollTarget}`);
+        if (targetElement) {
+          const offset = -120; // Ajusta este valor según necesites
+          const yOffset =
+            targetElement.getBoundingClientRect().top +
+            window.pageYOffset +
+            offset;
+          window.scrollTo({ top: yOffset, behavior: "smooth" });
+        }
+        localStorage.removeItem("scrollTarget"); // Limpiar el destino guardado
+      }
     });
   </script>
 </nav>

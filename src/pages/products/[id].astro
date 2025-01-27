@@ -62,27 +62,41 @@ const { description, price, photos, name, tones } = product;
       <p class="text-lg font-nerko mt-3">
         Desde ${price.toLocaleString("es-ES")}
       </p>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
-        <LabelCustomize type="number" name="Alto" />
-        <LabelCustomize type="number" name='Largo"' />
-        <LabelCustomize type="number" name="Ancho" />
-        <LabelCustomize type="number" name="Cajones" />
-        <select
-          class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-        >
-          <option selected="">Tono melamina</option>
-          {tones?.colors.map((color: string) => <option>{color}</option>)}
-        </select>
-      </div>
-      <a
-        id="whatsAppBtn"
-        class="flex w-[100%] bg-[#25d366] rounded font-nerko text-white justify-center items-center mt-5"
-        href={`https://wa.me/998973623?text=Hola, me interesa el producto ${product.name.replace(/[^\p{L}\p{N}\s]/gu, "")}. ¿Podrías darme más información?`}
-        target="_blank"
+      <form
+        class="flex flex-col gap-5"
+        id="productForm"
+        onsubmit="return validateForm(event)"
       >
-        <img class="w-10 h-10" src="/socialmedia/whatsappButton.svg" />
-        Cotizar mi producto
-      </a>
+        <input name="Name" value={name} hidden />
+        <div class="grid grid-cols-2 gap-5">
+          <LabelCustomize type="number" name="Alto" />
+          <LabelCustomize type="number" name="Largo" />
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+          <LabelCustomize type="number" name="Ancho" />
+          <LabelCustomize type="number" name="Cajones" />
+          <select
+            name="Color"
+            required
+            class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+          >
+            <option value="" selected>Color</option>
+            {
+              tones?.colors.map((color: string, i) => (
+                <option value={color}>{color}</option>
+              ))
+            }
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="flex w-[100%] bg-[#25d366] rounded font-nerko text-white justify-center items-center mt-5"
+        >
+          <img class="w-10 h-10" src="/socialmedia/whatsappButton.svg" />
+          Cotizar mi producto
+        </button>
+      </form>
     </div>
   </section>
   <script>
@@ -93,9 +107,10 @@ const { description, price, photos, name, tones } = product;
       const nextButton = document.getElementById("next");
 
       //Contacto WhatsApp
-      const whatsappButton = document.getElementById("whatsAppBtn");
-      const inputs = document.querySelectorAll("input");
-      const select = document.querySelector("select");
+      const form = document.getElementById("productForm");
+      const inputs = form?.querySelectorAll("input");
+      const select = document.getElementById("tones-select");
+      const whatsappButton = document.getElementById("whatsapp-btn");
 
       if (slider && prevButton && nextButton) {
         let index = 0;
@@ -143,33 +158,20 @@ const { description, price, photos, name, tones } = product;
           }
         }
       }
-      whatsappButton?.addEventListener("click", (event) => {
-        let allFieldsFilled = true;
-
-        // Validar inputs
-        inputs.forEach((input) => {
-          if (!input.value.trim()) {
-            allFieldsFilled = false;
-            input.classList.add("border-red-500"); // Resaltar en rojo si está vacío
-          } else {
-            input.classList.remove("border-red-500");
-          }
-        });
-
-        // Validar el select
-        if (!select?.value || select.value === "Tono melamina") {
-          allFieldsFilled = false;
-          select?.classList.add("border-red-500");
-        } else {
-          select.classList.remove("border-red-500");
-        }
-
-        // Prevenir navegación si hay campos vacíos
-        if (!allFieldsFilled) {
-          event.preventDefault();
-          alert(
-            "Por favor, rellena todos los campos antes de cotizar el producto."
+      // Valida form
+      form?.addEventListener("submit", (event) => {
+        event.preventDefault(); // Evita el envío por defecto
+        const formt = event.target;
+        if (formt instanceof HTMLFormElement) {
+          const formData = new FormData(formt);
+          const data = Object.fromEntries(formData.entries());
+          data.Name.toString();
+          const productName = data.Name.toString()?.replace(
+            /[^\p{L}\p{N}\s]/gu,
+            ""
           );
+          const whatsappURL = `https://wa.me/974061736?text=Hola, me interesa el producto ${productName}, con las especificaciones: Alto ${data.Alto}, Largo ${data.Largo}, Ancho ${data.Ancho} ${data.Cajones ? ", Cajones " + data.Cajones : ""}, Color ${data.Color}. ¿Podrías darme más información?`;
+          window.open(whatsappURL, "_blank");
         }
       });
     });

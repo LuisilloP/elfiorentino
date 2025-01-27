@@ -5,6 +5,8 @@ const { type, name } = Astro.props;
 <div class="relative">
   <input
     type={type}
+    name={name}
+    required="true"
     min="1"
     max="1000"
     id="hs-floating-underline-input-number"

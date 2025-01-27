@@ -6,7 +6,7 @@ export default async function seed() {
   await db.insert(Products).values([
     {
       id: 1,
-      name: "comoda personalizada",
+      name: "cómoda personalizada",
       price: 85000,
       description:
         "Crea la cómoda perfecta para tu espacio con nuestro diseño personalizable. Fabricada en melamina resistente y equipada con correderas telescópicas, ofrece durabilidad y un uso suave y cómodo. Elige las dimensiones, cantidad de cajones y color que prefieras directamente en nuestra página. Ideal para organizar ropa, accesorios o lo que necesites, adaptándose a cualquier estilo de decoración.",

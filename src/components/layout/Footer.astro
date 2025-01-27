@@ -69,6 +69,7 @@
     navBtn.forEach((btn) => {
       btn.addEventListener("click", (event) => {
         const target = btn.getAttribute("data-info");
+        console.log("ola");
         document
           .querySelector(`#${target}`)
           ?.scrollIntoView({ behavior: "smooth", block: "start" });
