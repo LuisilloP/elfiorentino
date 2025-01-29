@@ -1,5 +1,6 @@
 ---
 import {
+  dataCompanyCatalog,
   dataHomeCatalog,
   dataHomeTwoCatalog,
 } from "../../services/getProducts";
@@ -24,6 +25,7 @@ import ProductCard from "../products/ProductCard.astro";
             return (
               <ProductCard
                 name={product.name}
+                slug={product.slug}
                 id={product.id}
                 price={product.price}
                 photos={photos}
@@ -47,6 +49,7 @@ import ProductCard from "../products/ProductCard.astro";
               <ProductCard
                 id={product.id}
                 name={product.name}
+                slug={product.slug}
                 price={product.price}
                 photos={photos}
                 section="CC"
@@ -66,15 +69,16 @@ import ProductCard from "../products/ProductCard.astro";
           id="container-more-request"
         >
           {
-            dataHomeCatalog.map((product) => {
+            dataCompanyCatalog.map((product) => {
               const photos = product.photos as any;
               return (
                 <ProductCard
                   id={product.id}
+                  slug={product.slug}
                   name={product.name}
                   price={product.price}
                   photos={photos}
-                  section="HI"
+                  section="IE"
                 />
               );
             })

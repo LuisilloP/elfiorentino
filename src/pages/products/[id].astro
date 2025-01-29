@@ -10,7 +10,7 @@ import LabelCustomize from "../../components/button/LabelCustomize.astro";
 const { id } = Astro.params;
 
 const product: Product | undefined = dataProducts.find(
-  (p) => p.id.toString() == id
+  (p) => p.slug.toString() == id
 ) as Product | undefined;
 
 if (!product) {
@@ -19,13 +19,12 @@ if (!product) {
 
 export const getStaticPaths = (() => {
   return dataProducts.map((product) => ({
-    params: { id: product.id.toString() }, // Asegúrate de que el ID esté en formato de cadena
+    params: { id: product.slug.toString() }, // Asegúrate de que el ID esté en formato de cadena
   }));
 }) satisfies GetStaticPaths;
 
 const { description, price, photos, name, tones } = product;
 
-// src={`/productphotos/${id}/${img}`}
 ---
 
 <Layout title={name}>
@@ -54,12 +53,12 @@ const { description, price, photos, name, tones } = product;
       <ArrowImage direction="right" />
     </div>
     <div>
-      <h1 class="text-2xl font-nerko mb-5 pt-3 text-[#282829]">
+      <h1 class="text-3xl font-semibold  mb-5 pt-3 text-neutral-800">
         {product.name}
       </h1>
-      <p class="text-lg font-nerko text-[#505050] mt-5">{description}</p>
+      <p class="text-base text-neutral-500 mt-5">{description}</p>
 
-      <p class="text-lg font-nerko mt-3">
+      <p class=" font-bold text-neutral-700 mt-3">
         Desde ${price.toLocaleString("es-ES")}
       </p>
       <form
@@ -67,14 +66,18 @@ const { description, price, photos, name, tones } = product;
         id="productForm"
         onsubmit="return validateForm(event)"
       >
-        <input name="Name" value={name} hidden />
+      <input name="Name" value={name} hidden />
+      <input name="id" value={id} hidden />
+      {
+        id=="cocina-personalizada"|| id =="closet-personalizado" ? "" : 
         <div class="grid grid-cols-2 gap-5">
           <LabelCustomize type="number" name="Alto" />
           <LabelCustomize type="number" name="Largo" />
         </div>
         <div class="grid grid-cols-2 gap-5">
+          
           <LabelCustomize type="number" name="Ancho" />
-          <LabelCustomize type="number" name="Cajones" />
+          {product.type==true || id =="estante-repisero" || id == "mesones"?id=="comoda-personalizada"?<LabelCustomize type="number" name="Cajones"/>:"":<LabelCustomize type="number" name="Cajones"/>}
           <select
             name="Color"
             required
@@ -88,10 +91,11 @@ const { description, price, photos, name, tones } = product;
             }
           </select>
         </div>
-
+      }
+       
         <button
           type="submit"
-          class="flex w-[100%] bg-[#25d366] rounded font-nerko text-white justify-center items-center mt-5"
+          class="flex w-[100%] bg-[#25d366] rounded  text-white justify-center items-center mt-5"
         >
           <img class="w-10 h-10" src="/socialmedia/whatsappButton.svg" />
           Cotizar mi producto
@@ -170,7 +174,11 @@ const { description, price, photos, name, tones } = product;
             /[^\p{L}\p{N}\s]/gu,
             ""
           );
-          const whatsappURL = `https://wa.me/974061736?text=Hola, me interesa el producto ${productName}, con las especificaciones: Alto ${data.Alto}, Largo ${data.Largo}, Ancho ${data.Ancho} ${data.Cajones ? ", Cajones " + data.Cajones : ""}, Color ${data.Color}. ¿Podrías darme más información?`;
+          const spects = `con las especificaciones: Alto ${data.Alto}, Largo ${data.Largo}, Ancho ${data.Ancho} ${data.Cajones ? ", Cajones " + data.Cajones : ""}, Color ${data.Color}. `
+
+          const whatsappURL = `https://wa.me/974061736?text=Hola, me interesa el producto ${productName}, 
+          ${data.id == "cocina personalizada" || data.id == "closet-personalizado"?``:`${spects}` }
+          ¿Podrías darme más información?`;
           window.open(whatsappURL, "_blank");
         }
       });

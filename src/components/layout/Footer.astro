@@ -9,9 +9,8 @@
         href={"/"}
         class="flex z-50 font-title items-center text-2xl uppercase"
       >
-        <img alt="logo" class="w-10" src={`/indexImage/Logo.png`} /></a
+        <img alt="logo" class="w-16" src={`/indexImage/Logo.png`} /></a
       >
-      <p class="text-white">Muebleria El Fiorentino</p>
     </div>
     <div>
       <ul
@@ -26,7 +25,7 @@
             <li>
               <a
                 data-info={nav[0]}
-                class="nav-button duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer "
+                class="nav-button-h duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer "
               >
                 {nav[1]}
               </a>
@@ -62,18 +61,3 @@
     </div>
   </div>
 </footer>
-
-<script>
-  const navBtn = document.querySelectorAll(".nav-button");
-  if (navBtn)
-    navBtn.forEach((btn) => {
-      btn.addEventListener("click", (event) => {
-        const target = btn.getAttribute("data-info");
-        console.log("ola");
-        document
-          .querySelector(`#${target}`)
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-  //
-</script>

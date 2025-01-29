@@ -2,10 +2,11 @@ import { column, defineDb, defineTable, NOW } from "astro:db";
 
 // https://astro.build/db/config
 
-const Products = defineTable({
+const Product = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
     name: column.text(),
+    slug: column.text(),
     price: column.number(),
     description: column.text(),
     photos: column.json(),
@@ -16,5 +17,5 @@ const Products = defineTable({
 });
 
 export default defineDb({
-  tables: { Products },
+  tables: { Product },
 });

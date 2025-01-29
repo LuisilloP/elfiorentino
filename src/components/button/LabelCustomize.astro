@@ -7,7 +7,7 @@ const { type, name } = Astro.props;
     type={type}
     name={name}
     required="true"
-    min="1"
+    min={name == "Cajones" ? "0" : "1"}
     max="1000"
     id="hs-floating-underline-input-number"
     class="peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none
