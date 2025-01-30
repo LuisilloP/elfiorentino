@@ -1,9 +1,9 @@
-import { db, Product } from "astro:db";
+import { db, Products } from "astro:db";
 
 // https://astro.build/db/seed
 export default async function seed() {
   // TODO
-  await db.insert(Product).values([
+  await db.insert(Products).values([
     {
       id: 1,
       name: "cómoda personalizada",
@@ -12,7 +12,12 @@ export default async function seed() {
       description:
         "Crea la cómoda perfecta para tu espacio con nuestro diseño personalizable. Fabricada en melamina resistente y equipada con correderas telescópicas, ofrece durabilidad y un uso suave y cómodo. Elige las dimensiones, cantidad de cajones y color que prefieras directamente en nuestra página. Ideal para organizar ropa, accesorios o lo que necesites, adaptándose a cualquier estilo de decoración.",
       photos: {
-        urls: ["comoda/comoda_one.jpg", "comoda/comoda_two.jpg"],
+        urls: [
+          "comoda/comoda_one.jpg",
+          "comoda/comoda_two.jpg",
+          "comoda/comoda_three.jpg",
+          "comoda/comoda_four.jpg",
+        ],
       },
       tones: { colors: ["blanco", "negro"] },
       view: 100,
@@ -31,6 +36,8 @@ export default async function seed() {
           "cocina2/cocina_two.jpg",
           "cocina2/cocina_three.jpg",
           "cocina2/cocina_four.jpg",
+          "cocina2/cocina_five.jpg",
+          "cocina2/cocina_six.jpg",
         ],
       },
       tones: { colors: ["blanco", "negro"] },
@@ -58,13 +65,15 @@ export default async function seed() {
     },
     {
       id: 4,
-      name: "mueble inodoro",
-      slug: "mueble-inodoro",
-      price: 60000,
-      description:
-        "Fabricado en melamina resistente a la humedad, su diseño parte desde un estilo minimalista y funcional, con opciones de personalización en colores, dimensiones y compartimentos. Perfecto para organizar productos de higiene y mantener tu espacio ordenado.",
+      name: "comedor",
+      slug: "comedor",
+      price: 222222,
+      description: "a",
       photos: {
-        urls: ["banio/banio_one.jpg"],
+        urls: [
+          "default/comodaCuatroCajones.jpg",
+          "default/comodaCuatroCajones.jpg",
+        ],
       },
       tones: { colors: ["blanco", "negro"] },
       view: 1,
@@ -72,6 +81,20 @@ export default async function seed() {
     },
     {
       id: 5,
+      name: "cómoda personalizada",
+      slug: "comoda-personalizada-1",
+      price: 85000,
+      description:
+        "Crea la cómoda perfecta para tu espacio con nuestro diseño personalizable. Fabricada en melamina resistente y equipada con correderas telescópicas, ofrece durabilidad y un uso suave y cómodo. Elige las dimensiones, cantidad de cajones y color que prefieras directamente en nuestra página. Ideal para organizar ropa, accesorios o lo que necesites, adaptándose a cualquier estilo de decoración.",
+      photos: {
+        urls: ["comoda/comoda_one.jpg", "comoda/comoda_two.jpg"],
+      },
+      tones: { colors: ["blanco", "negro"] },
+      view: 1,
+      type: true,
+    },
+    {
+      id: 6,
       name: "mesa de centro",
       slug: "mesa-de-centro",
       price: 80000,
@@ -89,34 +112,14 @@ export default async function seed() {
       type: true,
     },
     {
-      id: 6,
-      name: "zapatero",
-      slug: "zapatero",
-      price: 222222,
-      description:
-        " Fabricado con el material de tu elección, como melamina o madera, este mueble combina funcionalidad y diseño. Personaliza las dimensiones, el color y la distribución de compartimentos para adaptarlo a tu espacio y cantidad de calzado.",
-      photos: {
-        urls: [
-          "default/comodaCuatroCajones.jpg",
-          "default/comodaCuatroCajones.jpg",
-        ],
-      },
-      tones: { colors: ["blanco", "negro"] },
-      view: 4,
-      type: true,
-    },
-    {
       id: 7,
-      name: "mesa de noche",
-      slug: "mesa-noche",
-      price: 222222,
+      name: "mueble inodoro",
+      slug: "mueble-inodoro",
+      price: 60000,
       description:
-        "Diseñada con materiales a tu elección, como melamina o madera, esta mesa de noche es el equilibrio perfecto entre funcionalidad y diseño. Puedes personalizar las dimensiones, el color y la distribución de compartimentos para adaptarla a tus necesidades y al estilo de tu dormitorio. Ideal para mantener tus objetos personales al alcance",
+        "Fabricado en melamina resistente a la humedad, su diseño parte desde un estilo minimalista y funcional, con opciones de personalización en colores, dimensiones y compartimentos. Perfecto para organizar productos de higiene y mantener tu espacio ordenado.",
       photos: {
-        urls: [
-          "default/comodaCuatroCajones.jpg",
-          "default/comodaCuatroCajones.jpg",
-        ],
+        urls: ["banio/banio_one.jpg", "banio/banio_two.jpg"],
       },
       tones: { colors: ["blanco", "negro"] },
       view: 4,
@@ -124,15 +127,18 @@ export default async function seed() {
     },
     {
       id: 8,
-      name: "escritorio",
-      slug: "escritorio",
+
+      name: "mesones",
+      slug: "mesones",
       price: 222222,
       description:
-        "Diseñado para satisfacer las necesidades de entornos profesionales, este escritorio combina materiales de calidad, como melamina o madera, con un diseño funcional y duradero. Personaliza sus dimensiones, colores y características para adaptarlo a oficinas, salas de reuniones o estaciones de trabajo",
+        "Optimiza tu espacio de trabajo con un mesón diseñado a medida, ideal para empresas e instituciones. Fabricado con materiales de alta calidad, como melamina o madera, este mesón se adapta a tus necesidades específicas, ofreciendo opciones personalizables en tamaño, color y distribución",
+
       photos: {
         urls: [
-          "default/comodaCuatroCajones.jpg",
-          "default/comodaCuatroCajones.jpg",
+          "meson/meson_one.jpg",
+          "meson/meson_two.jpg",
+          "meson/meson_three.jpg",
         ],
       },
       tones: { colors: ["blanco", "negro"] },
@@ -141,15 +147,14 @@ export default async function seed() {
     },
     {
       id: 9,
-      name: "archivador",
-      slug: "archivador",
+      name: "closet estacionario",
+      slug: "closet-estacionario",
       price: 222222,
-      description:
-        "Elaborado con materiales resistentes, como melamina o madera, ofrece durabilidad y un diseño personalizable en dimensiones, colores y compartimentos. Ideal para mantener el orden en oficinas, almacenes o cualquier espacio corporativo, combinando funcionalidad y una apariencia profesional.",
+      description: "",
       photos: {
         urls: [
-          "archivador/archivador_one.jpg",
-          "archivador/archivador_two.jpg",
+          "closetEmpresa/closetEmpresa_one.jpg",
+          "closetEmpresa/closetEmpresa_two.jpg",
         ],
       },
       tones: { colors: ["blanco", "negro"] },
@@ -172,18 +177,14 @@ export default async function seed() {
     },
     {
       id: 11,
-      name: "mesones",
-      slug: "mesones",
+      name: "pendiente",
+      slug: "pendiente",
       price: 222222,
-      description:
-        "Optimiza tu espacio de trabajo con un mesón diseñado a medida, ideal para empresas e instituciones. Fabricado con materiales de alta calidad, como melamina o madera, este mesón se adapta a tus necesidades específicas, ofreciendo opciones personalizables en tamaño, color y distribución",
-
+      description: "pendiente",
       photos: {
         urls: [
-          "meson/meson_one.jpg",
-          "meson/meson_two.jpg",
-          "meson/meson_three.jpg",
-          "meson/meson_four.jpg",
+          "default/comodaCuatroCajones.jpg",
+          "default/comodaCuatroCajones.jpg",
         ],
       },
       tones: { colors: ["blanco", "negro"] },
