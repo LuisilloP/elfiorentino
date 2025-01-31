@@ -24,6 +24,11 @@ const formater = Intl.NumberFormat("es-ES");
   <h3 class="text-neutral-500 text-xl pt-2">
     {name[0].toUpperCase() + name.substring(1)}
   </h3>
-  <h3 class="text-neutral-800">Desde: ${formater.format(price)}</h3>
+  <h3 class="text-neutral-800">
+    Desde: ${
+      formater.format(price) +
+        `${id == 2 || id == 3 ? " (por metro lineal)" : ""}`
+    }
+  </h3>
   <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
 </a>
