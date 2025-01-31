@@ -11,6 +11,10 @@ const { productName, textBtn } = Astro.props;
   href={`https://wa.me/56974061736?text=Hola, estoy interesado en sus servicios.`}
   target="_blank"
 >
-  <img class="w-10 h-10" src="/socialmedia/whatsappButton.svg" />
+  <img
+    class="w-10 h-10"
+    src="/socialmedia/whatsappButton.svg"
+    alt="whatsApp-image"
+  />
   {`${textBtn ? textBtn : "Hablemos por WhatsApp"}`}
 </a>
