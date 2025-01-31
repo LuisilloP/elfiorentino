@@ -176,8 +176,8 @@ const { description, price, photos, name, tones } = product;
           );
           const spects = `con las especificaciones: Alto ${data.Alto}, Largo ${data.Largo}, Ancho ${data.Ancho} ${data.Cajones ? ", Cajones " + data.Cajones : ""}, Color ${data.Color}. `
 
-          const whatsappURL = `https://wa.me/974061736?text=Hola, me interesa el producto ${productName}, 
-          ${data.id == "cocina personalizada" || data.id == "closet-personalizado"?``:`${spects}` }
+          const whatsappURL = `https://wa.me/56974061736?text=Hola, me interesa el producto ${productName}, 
+          ${data.id == "cocina-personalizada" || data.id == "closet-personalizado"?``:`${spects}` }
           ¿Podrías darme más información?`;
           window.open(whatsappURL, "_blank");
         }
