@@ -27,7 +27,7 @@ export default async function seed() {
       id: 2,
       name: "cocina personalizada",
       slug: "cocina-personalizada",
-      price: 290000,
+      price: 400000,
       description:
         "Diseña la cocina de tus sueños con nuestras opciones personalizables, donde el valor comienza desde el metro lineal. Fabricada en melamina de alta calidad, con correderas telescópicas para un uso suave y resistente, puedes elegir los colores, dimensiones y distribución que mejor se adapten a tu espacio y estilo.",
       photos: {
@@ -48,7 +48,7 @@ export default async function seed() {
       id: 3,
       name: "closet personalizado",
       slug: "closet-personalizado",
-      price: 400000,
+      price: 290000,
       description:
         "Con un valor que parte desde el metro lineal, ofrecemos estructuras fabricadas en melamina resistente, equipadas con correderas telescópicas para un uso fluido y duradero. Personaliza colores, dimensiones y la distribución interna para que se ajuste perfectamente a tus necesidades y estilo. Ideal para mantener tu ropa y accesorios siempre organizados.",
       photos: {
