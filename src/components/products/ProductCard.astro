@@ -17,7 +17,7 @@ const formater = Intl.NumberFormat("es-ES");
   href={`/products/${slug}`}
 >
   <img
-    class={`w-[100vw] h-[85vw] rounded-md ${section == "MR" ? " lg:h-[400px] " : section == "CC" ? "lg:w-[100vw] lg:h-[450px]" : "lg:h-[300px]"}`}
+    class={`w-[100vw] h-[85vw] rounded-md ${section == "MR" ? " lg:h-[400px] " : section == "CC" ? "lg:w-[100vw] lg:h-[450px]" : section == "IE" ? "lg:h-[320px]" : "lg:h-[280px]"}`}
     src={"productImage/" + photos.urls[0]}
     alt={name}
   />

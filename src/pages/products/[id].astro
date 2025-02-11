@@ -55,6 +55,7 @@ const { description, price, photos, name, tones } = product;
     <div>
       <h1 class="text-3xl font-semibold  mb-5 pt-3 text-neutral-800">
         {product.name}
+        <br><span class=" text-base italic text-neutral-600">{`${id == "cocina-personalizada" || id == "closet-personalizado" ? " Por metro lineal" : ""}`}</span>
       </h1>
       <p class="text-base text-neutral-500 mt-5">{description}</p>
 
@@ -185,3 +186,4 @@ const { description, price, photos, name, tones } = product;
     });
   </script>
 </Layout>
+
