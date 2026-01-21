@@ -10,9 +10,40 @@ import Layout from "../layouts/Layout.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const homeDescription =
+  "Mueblería El Fiorentino diseña y fabrica muebles a medida para hogares y empresas en la Región de Coquimbo. Más de 20 años entregando cocinas, clósets, muebles de baño y proyectos institucionales personalizados.";
+const ogImage = "https://muebleriaelfiorentino.cl/indexImage/WelcomeImage.webp";
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@type": "FurnitureStore",
+  name: "Mueblería El Fiorentino",
+  url: "https://muebleriaelfiorentino.cl",
+  image: ogImage,
+  logo: "https://muebleriaelfiorentino.cl/indexImage/Logo.png",
+  telephone: "+56974061736",
+  email: "muebleria.elfiorentino05@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Cuesta el Hinojo",
+    addressLocality: "Punitaqui",
+    addressRegion: "Coquimbo",
+    postalCode: "1840000",
+    addressCountry: "CL",
+  },
+  areaServed: "Región de Coquimbo",
+  sameAs: [
+    "https://www.instagram.com/muebles_elfiorentino/",
+    "https://www.facebook.com/p/Muebler%C3%ADa-El-Fiorentino-100032893551927/?locale=es_LA",
+  ],
+};
 ---
 
-<Layout title="El Fiorentino">
+<Layout
+  title="Mueblería El Fiorentino | Muebles a medida en Coquimbo"
+  description={homeDescription}
+  image={ogImage}
+  structuredData={homeSchema}
+>
   <Welcome />
   <MoreRequest />
   <Catalog />

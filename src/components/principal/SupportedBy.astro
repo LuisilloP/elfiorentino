@@ -1,31 +1,45 @@
 ---
-const urlSponsor = [
-  "supported/bomberos.png",
-  "supported/byo.png",
-  "supported/cecli.png",
-  "supported/prodelca.svg",
-  "supported/sercotec.png",
+import Container from "../layout/Container.astro";
+import SectionHeader from "../layout/SectionHeader.astro";
+
+const sponsors = [
+  { src: "/supported/bomberos.png", alt: "Cuerpo de Bomberos" },
+  { src: "/supported/byo.png", alt: "BYO" },
+  { src: "/supported/cecli.png", alt: "Colegio CECLI" },
+  { src: "/supported/prodelca.svg", alt: "Prodelca" },
+  { src: "/supported/sercotec.png", alt: "Sercotec" },
 ];
 ---
 
-<section class="pt-10 m-auto px-5">
-  <div class="items-center justify-center flex flex-col">
-    <h1 class="text-3xl font-bold text-neutral-800">Nos avalan</h1>
-    <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
-  </div>
-  <div
-    class="pt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 m-auto justify-center"
-  >
-    {
-      urlSponsor.map((value, i) => (
-        <img
-          src={value}
-          alt=""
-          width={200}
-          height={200}
-          class="h-[200px] w-[200px] object-contain cursor-pointer hover:scale-110 ease-in-out duration-200 m-auto"
-        />
-      ))
-    }
-  </div>
+<section class="section-shell" id="nos-avalan">
+  <Container class="flex flex-col gap-6">
+    <div class="reveal-on-scroll">
+      <SectionHeader
+        eyebrow="Confían en nosotros"
+        title="Nos avalan"
+        subtitle="Marcas y organizaciones que han elegido nuestros muebles a medida."
+      />
+    </div>
+    <div class="surface-card card-bleed p-6 reveal-on-scroll reveal-delay-100">
+      <div
+        class="grid grid-cols-2 items-center gap-4 sm:grid-cols-3 lg:grid-cols-5"
+      >
+        {
+          sponsors.map((value) => (
+            <div class="flex items-center justify-center rounded-lg bg-sand/60 p-4 hover:scale-105 transition-transform duration-300">
+              <img
+                src={value.src}
+                alt={value.alt}
+                width="200"
+                height="80"
+                loading="lazy"
+                decoding="async"
+                class="h-14 w-auto object-contain opacity-80 grayscale transition hover:opacity-100 hover:grayscale-0"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
 </section>

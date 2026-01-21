@@ -1,131 +1,328 @@
 ---
+import Container from "./Container.astro";
 
+const navLinks = [
+  { id: "mas-pedidos", label: "Más pedidos" },
+  { id: "catalogo", label: "Catálogo" },
+  { id: "nosotros", label: "Nosotros" },
+  { id: "nos-avalan", label: "Nos Avalan" },
+  { id: "contacto", label: "Contacto" },
+];
+
+const whatsappHref =
+  "https://wa.me/56974061736?text=Hola, estoy interesado en sus servicios.";
 ---
 
-<nav
-  id="navBar"
-  class={`ease-out duration-500 flex flex-col md:flex-row justify-between fixed w-full z-30 top-0 start-0 border-b border-gray-600 px-[10%] pt-4  text-white font-barlow pb-5 `}
->
-  <div class="flex
-  justify-between
-  w-[100%]
-  md:w-auto
-  items-center">
-    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img
-        src="/indexImage/Logo.png"
-        class="h-16 lg:h-28"
-        alt="El Fiorentino"
-      />
-    </a>
-    <a
-      id="menu-button"
-      data-collapse-toggle="navbar-sticky"
-      data-nav-toggle="#navbar-sticky"
-      class="ease-out duration-500 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-      role="button"
-      aria-controls="navbar-sticky"
-      aria-expanded="false"
-    >
-      <span class="sr-only">Open main menu</span>
-      <svg
-        class="w-5 h-5"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 17 14"
+<header class="site-header fixed inset-x-0 top-0 z-50" data-site-header>
+  <Container class="nav-wrapper">
+    <div class="nav-shell md:gap-4 lg:gap-6" data-nav-shell>
+      <a href="/" class="nav-brand" aria-label="Ir al inicio">
+        <span class="nav-brand-mark">
+          <img
+            src="/indexImage/Logo.png"
+            class="h-9 w-auto"
+            alt="Mueblería El Fiorentino"
+            loading="eager"
+            decoding="async"
+            width="120"
+            height="120"
+          />
+        </span>
+        <span class="nav-brand-text">
+          <span class="nav-brand-eyebrow">Mueblería</span>
+          <strong>El Fiorentino</strong>
+        </span>
+      </a>
+
+      <nav
+        class="nav-links hidden flex-1 items-center justify-center gap-1 lg:gap-2 md:flex"
+        aria-label="Navegación principal"
       >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M1 1h15M1 7h15M1 13h15"></path>
-      </svg>
-    </a>
-  </div>
-  <div
-    id="menu-open"
-    class="ease-out duration-500 hidden items-center justify-between w-full md:flex md:w-auto md:order-1 navbar gap-5"
-    id="navbar-sticky"
-  >
-    <ul
-      class="flex flex-col gap-4 lg:p-4 md:p-0 mt-8 lg:mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
-    >
-      {
-        [
-          ["mas-pedidos", "Mas pedidos"],
-          ["catalogo", "Catalogo"],
-          ["nosotros", "Nosotros"],
-        ].map((nav) => (
-          <li>
+        {
+          navLinks.map((nav) => (
             <a
-              data-info={nav[0]}
-              class="nav-button-h duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer "
-              href={`#${nav[1]}`}
+              class="nav-link"
+              href={`#${nav.id}`}
+              data-nav-link
+              data-nav-target={nav.id}
             >
-              {nav[1]}
+              {nav.label}
             </a>
-          </li>
-        ))
-      }
-    </ul>
-    <ul
-      class="flex gap-4 md:gap-0 lg:p-4 md:p-0 mt-8 lg:mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+          ))
+        }
+      </nav>
+
+      <div
+        class="nav-actions flex flex-1 items-center justify-end gap-2 md:flex-none md:gap-3"
+      >
+        <div class="nav-socials hidden items-center gap-2 lg:flex">
+          <a
+            class="nav-chip"
+            href="https://www.instagram.com/muebles_elfiorentino/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram de Mueblería El Fiorentino"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 15 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#instaclip)">
+                <path
+                  d="M7.5 6.79668C7.19095 6.7968 6.88888 6.88854 6.63197 7.06033C6.37507 7.23211 6.17486 7.47621 6.05668 7.76176C5.93849 8.04732 5.90763 8.36151 5.96799 8.6646C6.02835 8.9677 6.17723 9.24609 6.3958 9.46457C6.61437 9.68306 6.89282 9.83184 7.19593 9.89209C7.49905 9.95234 7.81323 9.92136 8.09874 9.80306C8.38425 9.68477 8.62827 9.48447 8.79996 9.2275C8.97165 8.97053 9.06328 8.66842 9.06328 8.35938C9.06297 7.94492 8.89815 7.54753 8.60503 7.25452C8.31191 6.96151 7.91446 6.79683 7.5 6.79668ZM11.1536 5.59551C11.0741 5.3939 10.9539 5.21079 10.8007 5.05753C10.6474 4.90427 10.4643 4.78414 10.2627 4.70459C9.64746 4.46172 8.18262 4.51621 7.5 4.51621C6.81738 4.51621 5.354 4.45967 4.73701 4.70459C4.5354 4.78414 4.35229 4.90427 4.19903 5.05753C4.04578 5.21079 3.92565 5.3939 3.84609 5.59551C3.60352 6.21074 3.65771 7.67705 3.65771 8.35908C3.65771 9.04111 3.60352 10.5057 3.84727 11.1229C3.92682 11.3246 4.04695 11.5077 4.20021 11.6609C4.35346 11.8142 4.53657 11.9343 4.73818 12.0139C5.35342 12.2567 6.81826 12.2022 7.50117 12.2022C8.18408 12.2022 9.64688 12.2588 10.2639 12.0139C10.4655 11.9343 10.6486 11.8142 10.8018 11.6609C10.9551 11.5077 11.0752 11.3246 11.1548 11.1229C11.3994 10.5077 11.3432 9.04141 11.3432 8.35938C11.3432 7.67734 11.3994 6.21309 11.1548 5.5958L11.1536 5.59551ZM7.5 10.7617C7.02486 10.7617 6.56039 10.6208 6.16533 10.3569C5.77027 10.0929 5.46235 9.71768 5.28052 9.27871C5.0987 8.83974 5.05112 8.35671 5.14382 7.8907C5.23651 7.42469 5.46531 6.99664 5.80129 6.66066C6.13726 6.32469 6.56532 6.09589 7.03133 6.00319C7.49733 5.9105 7.98037 5.95807 8.41934 6.1399C8.85831 6.32173 9.2335 6.62964 9.49748 7.0247C9.76145 7.41977 9.90234 7.88424 9.90234 8.35938C9.90273 8.67496 9.84085 8.98753 9.72026 9.27917C9.59967 9.57081 9.42273 9.83579 9.19957 10.0589C8.97642 10.2821 8.71143 10.459 8.41979 10.5796C8.12815 10.7002 7.81559 10.7621 7.5 10.7617ZM10.0014 6.41699C9.89045 6.41705 9.78201 6.38421 9.68976 6.32263C9.5975 6.26105 9.52559 6.1735 9.4831 6.07104C9.44061 5.96858 9.42947 5.85583 9.45107 5.74703C9.47267 5.63824 9.52606 5.5383 9.60447 5.45985C9.68288 5.3814 9.78279 5.32796 9.89157 5.3063C10.0004 5.28464 10.1131 5.29573 10.2156 5.33816C10.3181 5.3806 10.4057 5.45247 10.4673 5.54469C10.5289 5.63691 10.5618 5.74533 10.5618 5.85625C10.5621 5.92991 10.5479 6.0029 10.5199 6.07104C10.492 6.13918 10.4508 6.20113 10.3989 6.25334C10.3469 6.30554 10.2851 6.34698 10.2171 6.37526C10.1491 6.40355 10.0762 6.41813 10.0025 6.41816L10.0014 6.41699ZM12.6562 1.79688H2.34375C1.97079 1.79688 1.6131 1.94503 1.34938 2.20876C1.08566 2.47248 0.9375 2.83016 0.9375 3.20312L0.9375 13.5156C0.9375 13.8886 1.08566 14.2463 1.34938 14.51C1.6131 14.7737 1.97079 14.9219 2.34375 14.9219H12.6562C13.0292 14.9219 13.3869 14.7737 13.6506 14.51C13.9143 14.2463 14.0625 13.8886 14.0625 13.5156V3.20312C14.0625 2.83016 13.9143 2.47248 13.6506 2.20876C13.3869 1.94503 13.0292 1.79688 12.6562 1.79688ZM12.1547 10.293C12.1169 11.0438 11.9455 11.7092 11.3974 12.2559C10.8492 12.8025 10.1845 12.9774 9.43447 13.0132C8.66074 13.0568 6.34102 13.0568 5.56729 13.0132C4.81641 12.9754 4.15342 12.8037 3.60439 12.2559C3.05537 11.708 2.88281 11.0424 2.84707 10.293C2.80342 9.51895 2.80342 7.19893 2.84707 6.42578C2.88486 5.6749 3.0542 5.00957 3.60439 4.46289C4.15459 3.91621 4.81934 3.74336 5.56729 3.70762C6.34102 3.66396 8.66074 3.66396 9.43447 3.70762C10.1854 3.74541 10.8504 3.91709 11.3974 4.46494C11.9443 5.01279 12.1189 5.67842 12.1547 6.4293C12.1983 7.20039 12.1983 9.51836 12.1547 10.293Z"
+                  fill="currentColor"></path>
+              </g>
+              <defs>
+                <clipPath id="instaclip">
+                  <rect
+                    width="15"
+                    height="15"
+                    fill="white"
+                    transform="translate(0 0.859375)"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </a>
+          <a
+            class="nav-chip"
+            href="https://www.facebook.com/p/Muebler%C3%ADa-El-Fiorentino-100032893551927/?locale=es_LA"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook de Mueblería El Fiorentino"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 15 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.6562 1.79688H2.34375C1.97079 1.79688 1.6131 1.94503 1.34938 2.20876C1.08566 2.47248 0.9375 2.83016 0.9375 3.20312L0.9375 13.5156C0.9375 13.8886 1.08566 14.2463 1.34938 14.51C1.6131 14.7737 1.97079 14.9219 2.34375 14.9219H6.36475V10.4597H4.51904V8.35938H6.36475V6.75859C6.36475 4.93779 7.44873 3.93203 9.10898 3.93203C9.9041 3.93203 10.7355 4.07383 10.7355 4.07383V5.86094H9.81943C8.9168 5.86094 8.63525 6.42109 8.63525 6.99561V8.35938H10.6503L10.328 10.4597H8.63525V14.9219H12.6562C13.0292 14.9219 13.3869 14.7737 13.6506 14.51C13.9143 14.2463 14.0625 13.8886 14.0625 13.5156V3.20312C14.0625 2.83016 13.9143 2.47248 13.6506 2.20876C13.3869 1.94503 13.0292 1.79688 12.6562 1.79688Z"
+                fill="currentColor"></path>
+            </svg>
+          </a>
+        </div>
+
+        <a
+          class="nav-cta hidden md:inline-flex"
+          href={whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            src="/socialmedia/whatsappButton.svg"
+            alt=""
+            aria-hidden="true"
+            class="h-5 w-5"
+            loading="lazy"
+            decoding="async"
+          />
+          <span>Cotizar</span>
+        </a>
+
+        <button
+          type="button"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Abrir menú"
+          class="nav-toggle md:hidden"
+          data-menu-button
+        >
+          <span class="sr-only">Abrir menú</span>
+          <svg
+            class="h-5 w-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </Container>
+
+  <div
+    class="nav-mobile"
+    id="mobile-menu"
+    data-mobile-overlay
+    aria-hidden="true"
+  >
+    <div class="nav-mobile__backdrop" data-overlay-backdrop></div>
+    <div
+      class="nav-mobile__panel"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menú de navegación"
+      tabindex="-1"
+      data-mobile-panel
     >
-      <li>
+      <div class="nav-mobile__header">
         <a
-          href={"https://www.instagram.com/muebles_elfiorentino/"}
-          target="_blank"
-          ><img
-            src={"/socialmedia/Instagram.svg"}
-            width={17}
-            height={17}
-            alt="Logo Instagram"
-          /></a
+          href="/"
+          class="nav-brand nav-brand--compact"
+          aria-label="Volver al inicio"
         >
-      </li>
-      <li>
+          <span class="nav-brand-mark nav-brand-mark--soft">
+            <img
+              src="/indexImage/Logo.png"
+              alt="Mueblería El Fiorentino"
+              class="h-8 w-auto"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+          <span class="nav-brand-text">
+            <span class="nav-brand-eyebrow">Mueblería</span>
+            <strong>El Fiorentino</strong>
+          </span>
+        </a>
+
+        <button
+          type="button"
+          class="nav-toggle nav-toggle--ghost"
+          aria-label="Cerrar menú"
+          data-menu-close
+        >
+          <span class="sr-only">Cerrar menú</span>
+          <svg
+            class="h-5 w-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 6l12 12M6 18L18 6"></path>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="nav-mobile__links" aria-label="Navegación móvil">
+        {
+          navLinks.map((nav) => (
+            <a
+              class="nav-mobile-link"
+              href={`#${nav.id}`}
+              data-nav-link
+              data-nav-target={nav.id}
+            >
+              {nav.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <a
+        class="nav-cta nav-cta--block"
+        href={whatsappHref}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          src="/socialmedia/whatsappButton.svg"
+          alt=""
+          aria-hidden="true"
+          class="h-5 w-5"
+          loading="lazy"
+          decoding="async"
+        />
+        <span>Cotizar por WhatsApp</span>
+      </a>
+
+      <div class="nav-mobile__socials">
         <a
-          href={"https://www.facebook.com/p/Muebler%C3%ADa-El-Fiorentino-100032893551927/?locale=es_LA"}
+          class="nav-chip"
+          href="https://www.instagram.com/muebles_elfiorentino/"
           target="_blank"
-          ><img
-            src={"/socialmedia/Facebook.svg"}
-            width={17}
-            height={17}
-            alt="Logo Facebook"
-          /></a
+          rel="noreferrer"
+          aria-label="Instagram de Mueblería El Fiorentino"
         >
-      </li>
-      <li>
-        <a href={"mailto:muebleria.elfiorentino05@gmail.com"} target="_blank"
-          ><img
-            src={"/socialmedia/Mail.svg"}
-            width={17}
-            height={17}
-            alt="Logo Correo"
-          /></a
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 15 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#instaclip-mobile)">
+              <path
+                d="M7.5 6.79668C7.19095 6.7968 6.88888 6.88854 6.63197 7.06033C6.37507 7.23211 6.17486 7.47621 6.05668 7.76176C5.93849 8.04732 5.90763 8.36151 5.96799 8.6646C6.02835 8.9677 6.17723 9.24609 6.3958 9.46457C6.61437 9.68306 6.89282 9.83184 7.19593 9.89209C7.49905 9.95234 7.81323 9.92136 8.09874 9.80306C8.38425 9.68477 8.62827 9.48447 8.79996 9.2275C8.97165 8.97053 9.06328 8.66842 9.06328 8.35938C9.06297 7.94492 8.89815 7.54753 8.60503 7.25452C8.31191 6.96151 7.91446 6.79683 7.5 6.79668ZM11.1536 5.59551C11.0741 5.3939 10.9539 5.21079 10.8007 5.05753C10.6474 4.90427 10.4643 4.78414 10.2627 4.70459C9.64746 4.46172 8.18262 4.51621 7.5 4.51621C6.81738 4.51621 5.354 4.45967 4.73701 4.70459C4.5354 4.78414 4.35229 4.90427 4.19903 5.05753C4.04578 5.21079 3.92565 5.3939 3.84609 5.59551C3.60352 6.21074 3.65771 7.67705 3.65771 8.35908C3.65771 9.04111 3.60352 10.5057 3.84727 11.1229C3.92682 11.3246 4.04695 11.5077 4.20021 11.6609C4.35346 11.8142 4.53657 11.9343 4.73818 12.0139C5.35342 12.2567 6.81826 12.2022 7.50117 12.2022C8.18408 12.2022 9.64688 12.2588 10.2639 12.0139C10.4655 11.9343 10.6486 11.8142 10.8018 11.6609C10.9551 11.5077 11.0752 11.3246 11.1548 11.1229C11.3994 10.5077 11.3432 9.04141 11.3432 8.35938C11.3432 7.67734 11.3994 6.21309 11.1548 5.5958L11.1536 5.59551ZM7.5 10.7617C7.02486 10.7617 6.56039 10.6208 6.16533 10.3569C5.77027 10.0929 5.46235 9.71768 5.28052 9.27871C5.0987 8.83974 5.05112 8.35671 5.14382 7.8907C5.23651 7.42469 5.46531 6.99664 5.80129 6.66066C6.13726 6.32469 6.56532 6.09589 7.03133 6.00319C7.49733 5.9105 7.98037 5.95807 8.41934 6.1399C8.85831 6.32173 9.2335 6.62964 9.49748 7.0247C9.76145 7.41977 9.90234 7.88424 9.90234 8.35938C9.90273 8.67496 9.84085 8.98753 9.72026 9.27917C9.59967 9.57081 9.42273 9.83579 9.19957 10.0589C8.97642 10.2821 8.71143 10.459 8.41979 10.5796C8.12815 10.7002 7.81559 10.7621 7.5 10.7617ZM10.0014 6.41699C9.89045 6.41705 9.78201 6.38421 9.68976 6.32263C9.5975 6.26105 9.52559 6.1735 9.4831 6.07104C9.44061 5.96858 9.42947 5.85583 9.45107 5.74703C9.47267 5.63824 9.52606 5.5383 9.60447 5.45985C9.68288 5.3814 9.78279 5.32796 9.89157 5.3063C10.0004 5.28464 10.1131 5.29573 10.2156 5.33816C10.3181 5.3806 10.4057 5.45247 10.4673 5.54469C10.5289 5.63691 10.5618 5.74533 10.5618 5.85625C10.5621 5.92991 10.5479 6.0029 10.5199 6.07104C10.492 6.13918 10.4508 6.20113 10.3989 6.25334C10.3469 6.30554 10.2851 6.34698 10.2171 6.37526C10.1491 6.40355 10.0762 6.41813 10.0025 6.41816L10.0014 6.41699ZM12.6562 1.79688H2.34375C1.97079 1.79688 1.6131 1.94503 1.34938 2.20876C1.08566 2.47248 0.9375 2.83016 0.9375 3.20312L0.9375 13.5156C0.9375 13.8886 1.08566 14.2463 1.34938 14.51C1.6131 14.7737 1.97079 14.9219 2.34375 14.9219H12.6562C13.0292 14.9219 13.3869 14.7737 13.6506 14.51C13.9143 14.2463 14.0625 13.8886 14.0625 13.5156V3.20312C14.0625 2.83016 13.9143 2.47248 13.6506 2.20876C13.3869 1.94503 13.0292 1.79688 12.6562 1.79688ZM12.1547 10.293C12.1169 11.0438 11.9455 11.7092 11.3974 12.2559C10.8492 12.8025 10.1845 12.9774 9.43447 13.0132C8.66074 13.0568 6.34102 13.0568 5.56729 13.0132C4.81641 12.9754 4.15342 12.8037 3.60439 12.2559C3.05537 11.708 2.88281 11.0424 2.84707 10.293C2.80342 9.51895 2.80342 7.19893 2.84707 6.42578C2.88486 5.6749 3.0542 5.00957 3.60439 4.46289C4.15459 3.91621 4.81934 3.74336 5.56729 3.70762C6.34102 3.66396 8.66074 3.66396 9.43447 3.70762C10.1854 3.74541 10.8504 3.91709 11.3974 4.46494C11.9443 5.01279 12.1189 5.67842 12.1547 6.4293C12.1983 7.20039 12.1983 9.51836 12.1547 10.293Z"
+                fill="currentColor"></path>
+            </g>
+            <defs>
+              <clipPath id="instaclip-mobile">
+                <rect
+                  width="15"
+                  height="15"
+                  fill="white"
+                  transform="translate(0 0.859375)"></rect>
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+        <a
+          class="nav-chip"
+          href="https://www.facebook.com/p/Muebler%C3%ADa-El-Fiorentino-100032893551927/?locale=es_LA"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Facebook de Mueblería El Fiorentino"
         >
-      </li>
-    </ul>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 15 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.6562 1.79688H2.34375C1.97079 1.79688 1.6131 1.94503 1.34938 2.20876C1.08566 2.47248 0.9375 2.83016 0.9375 3.20312L0.9375 13.5156C0.9375 13.8886 1.08566 14.2463 1.34938 14.51C1.6131 14.7737 1.97079 14.9219 2.34375 14.9219H6.36475V10.4597H4.51904V8.35938H6.36475V6.75859C6.36475 4.93779 7.44873 3.93203 9.10898 3.93203C9.9041 3.93203 10.7355 4.07383 10.7355 4.07383V5.86094H9.81943C8.9168 5.86094 8.63525 6.42109 8.63525 6.99561V8.35938H10.6503L10.328 10.4597H8.63525V14.9219H12.6562C13.0292 14.9219 13.3869 14.7737 13.6506 14.51C13.9143 14.2463 14.0625 13.8886 14.0625 13.5156V3.20312C14.0625 2.83016 13.9143 2.47248 13.6506 2.20876C13.3869 1.94503 13.0292 1.79688 12.6562 1.79688Z"
+              fill="currentColor"></path>
+          </svg>
+        </a>
+        <a
+          class="nav-chip"
+          href="mailto:muebleria.elfiorentino05@gmail.com"
+          aria-label="Correo de contacto"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 15 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#mailclip)">
+              <path
+                d="M0 2.73438V13.9844H15V2.73438H0ZM4.13938 7.69L1.25 11.26V5.34875L4.13938 7.69ZM1.55125 3.98438H13.4481L7.5 8.805L1.55125 3.98438ZM5.11 8.47687L7.5 10.4137L9.89375 8.47375L13.4012 12.7344H1.66438L5.11 8.47687ZM10.865 7.68687L13.75 5.34875V11.1912L10.865 7.68687Z"
+                fill="currentColor"></path>
+            </g>
+            <defs>
+              <clipPath id="mailclip">
+                <rect
+                  width="15"
+                  height="15"
+                  fill="white"
+                  transform="translate(0 0.859375)"></rect>
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
-
-  <script>
-    // Obtener referencias a los elementos del DOM
-
-    const button = document.querySelector("#menu-button");
-    const menuOpen = document.querySelector("#menu-open");
-    const navBtn = document.querySelectorAll(".nav-button-h");
-    const navBar = document.getElementById("navBar");
-
-    // Función para manejar el click del botón del menú
-    if (button && menuOpen) {
-      button.addEventListener("click", () => {
-        navBar?.classList.add("bg-[#111111F2]");
-        menuOpen.classList.toggle("hidden");
-      });
-    }
-
-    // Función para manejar el click en botones de navegación
-  </script>
-</nav>
+</header>

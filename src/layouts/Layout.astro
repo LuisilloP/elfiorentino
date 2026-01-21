@@ -1,74 +1,114 @@
 ---
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
+import "../styles/global.css";
+
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  structuredData?: Record<string, any> | string;
+  ogType?: string;
+  noIndex?: boolean;
 }
-const { title } = Astro.props;
+
+const siteUrl = "https://muebleriaelfiorentino.cl";
+const {
+  title,
+  description,
+  image,
+  canonical,
+  structuredData,
+  ogType = "website",
+  noIndex = false,
+} = Astro.props;
+
+const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const metaDescription =
+  description ??
+  "Mueblería El Fiorentino: más de 20 años diseñando y fabricando mobiliario a medida para hogares, empresas e instituciones en la Región de Coquimbo.";
+const ogImage = image ?? `${siteUrl}/indexImage/Logo.png`;
+const canonicalUrl = canonical ?? currentUrl;
+const robotsRule = noIndex ? "noindex, nofollow" : "index, follow";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/indexImage/Logo.png" />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Mueblería El Fiorentino" />
-    <meta
-      name="description"
-      content="Mueblería El Fiorentino, más de 20 años diseñando, confeccionando y armando mobiliario en línea plana para hogares, empresas e instituciones. Trabajamos en toda la Cuarta Región, ofreciendo calidad y personalización a tu medida. Ubicados en Cuesta El Hinojo, Punitaqui."
+    <meta name="description" content={metaDescription} />
+    <meta name="robots" content={robotsRule} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="es_CL" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
     />
-    <meta
-      name="keywords"
-      content="muebles a medida, mueblería, mobiliario personalizado, muebles para hogar, muebles para oficina, muebles en Punitaqui, muebles en Coquimbo, muebles en La Serena, muebles en Ovalle, muebles en la Cuarta Región"
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
     />
-    <meta
-      property="og:title"
-      content="Mueblería El Fiorentino - Mobiliario Personalizado en la Cuarta Región"
+    <link
+      rel="preload"
+      as="image"
+      href="/indexImage/WelcomeImage.webp"
+      imagesrcset="/indexImage/WelcomeImage.webp 1200w"
+      imagesizes="100vw"
     />
-    <meta
-      property="og:description"
-      content="Con más de 20 años de experiencia, ofrecemos muebles a medida para hogares, oficinas e instituciones. Trabajamos en toda la Cuarta Región."
-    />
-    <meta
-      property="og:image"
-      content="https://muebleriaelfiorentino.cl/indexImage/Logo.png"
-    />
+
+    {structuredData && (
+      <script type="application/ld+json">
+        {typeof structuredData === "string"
+          ? structuredData
+          : JSON.stringify(structuredData)}
+      </script>
+    )}
 
     <title>{title}</title>
   </head>
-  <body class="m-auto font-b">
-    <a
-      target="__blank"
-      href={`https://wa.me/56974061736?text=Hola, estoy interesado en sus servicios.`}
-      class="w-16 fixed bottom-20 sm:bottom-10 rounded-full right-4 z-50 cursor-pointer hover:opacity-80"
-      ><img
-        src={"/socialmedia/whatsappButton.svg"}
-        alt="btn_whatsapp"
-        class="rounded-full"
-      /></a
-    ></body
-  >
-  <Header />
-  <slot />
-  <Footer />
+  <body class="m-auto font-barlow bg-page text-ink antialiased">
+    <Header />
+    <main>
+      <a
+        target="__blank"
+        rel="noreferrer"
+        href="https://wa.me/56974061736?text=Hola, estoy interesado en sus servicios."
+        class="fixed bottom-6 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-soft ring-2 ring-white/80 transition hover:scale-105"
+      >
+        <img
+          src="/socialmedia/whatsappButton.svg"
+          alt="Abrir WhatsApp de Mueblería El Fiorentino"
+          class="h-8 w-8"
+          loading="lazy"
+          decoding="async"
+          width="64"
+          height="64"
+        />
+      </a>
+      <slot />
+    </main>
+    <Footer />
+    <script type="module" src="/code/navFunction.js" defer></script>
+    <script type="module" src="/code/scroll-reveal.js" defer></script>
+  </body>
 </html>
-
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
-<script>
-  import { navFunction } from "../../public/code/navFunction";
-  navFunction();
-</script>

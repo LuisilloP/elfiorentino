@@ -1,17 +1,21 @@
 ---
 import { dataMoreRequest } from "../../services/getProducts";
+import Container from "../layout/Container.astro";
+import SectionHeader from "../layout/SectionHeader.astro";
 import ProductCard from "../products/ProductCard.astro";
 ---
 
-<section class="xl:w-[1200px] m-auto pt-8 font-barlow lg:px-5" id="mas-pedidos">
-  <div>
-    <div class="items-center justify-center flex flex-col">
-      <h1 class="text-3xl font-bold text-neutral-800">Mas Pedidos</h1>
-      <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
+<section class="section-shell surface-quiet" id="mas-pedidos">
+  <Container class="flex flex-col gap-8">
+    <div class="reveal-on-scroll">
+      <SectionHeader
+        eyebrow="Selección destacada"
+        title="Más pedidos"
+        subtitle="Proyectos a medida que nuestros clientes nos piden una y otra vez."
+      />
     </div>
     <div
-      class="pt-8 px-5 lg:px-0 grid grid-cols-1 lg:grid-cols-3 md:gap-5"
-      id="container-more-request"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal-on-scroll reveal-delay-200"
     >
       {
         dataMoreRequest.map((product) => {
@@ -29,5 +33,5 @@ import ProductCard from "../products/ProductCard.astro";
         })
       }
     </div>
-  </div>
+  </Container>
 </section>

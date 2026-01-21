@@ -1,56 +1,320 @@
 ---
+import Button from "../button/Button.astro";
+import WhatsAppBtn from "../button/WhatsAppBtn.astro";
+import Container from "../layout/Container.astro";
+import SectionHeader from "../layout/SectionHeader.astro";
 
+const contacts = [
+  {
+    label: "Teléfono 1",
+    value: "+56 9 7406 1736",
+    href: "tel:+56974061736",
+    icon: "/socialmedia/Phone.svg",
+  },
+  {
+    label: "Teléfono 2",
+    value: "+56 9 8343 2390",
+    href: "tel:+56983432390",
+    icon: "/socialmedia/Phone.svg",
+  },
+  {
+    label: "Correo",
+    value: "muebleria.elfiorentino05@gmail.com",
+    href: "mailto:muebleria.elfiorentino05@gmail.com",
+    icon: "/socialmedia/MailB.svg",
+  },
+  {
+    label: "Dirección",
+    value: "Cuesta el Hinojo, 1840000 Punitaqui, Coquimbo",
+    href: "https://www.google.com/maps?q=Cuesta+el+Hinojo+Punitaqui+Coquimbo",
+    icon: "/socialmedia/Location.svg",
+  },
+];
+const mapLink =
+  contacts.find((item) => item.label.toLowerCase().includes("dirección"))?.href ??
+  "https://www.google.com/maps?q=Cuesta+el+Hinojo+Punitaqui+Coquimbo";
 ---
 
-<section
-  class="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:max-w-[1200px] m-auto font-barlow justify-center items-center pt-8 px-5"
->
-  <div class="">
-    <div class="flex flex-col gap-2">
-      <p class="text-lg text-neutral-700 font-bold">Contáctanos</p>
-      <h3 class="text-4xl font-semibold text-blue-500">
-        Nuestra sucursal Punitaqui
-      </h3>
-      <p class="text-neutral-500">
-        Siempre estamos disponibles para ayudarte. Contáctanos a través de los
-        medios que ponemos a tu disposición y con gusto atenderemos tus
-        necesidades.
-      </p>
-    </div>
-    <div class="text-neutral-700 font-bold flex flex-col gap-2 pt-5">
-      <a class="flex gap-2" href="tel:+56974061736">
-        <img src="/socialmedia/Phone.svg" alt="phone-image" />
-        <p>9 7406 1736</p>
-      </a>
-      <a class="flex gap-2" href="tel:+56983432390">
-        <img src="/socialmedia/Phone.svg" alt="phone-image" />
-        <p>9 8343 2390</p>
-      </a>
-      <a class="flex gap-2">
-        <img src="/socialmedia/Location.svg" alt="location-image" />
-        <p>Cuesta el Hinojo, 1840000 Punitaqui, Coquimbo</p>
-      </a>
-      <a class="flex gap-2" href="mailto:muebleria.elfiorentino05@gmail.com">
-        <img src="/socialmedia/MailB.svg" alt="mail-image" />
-        <p>muebleria.elfiorentino05@gmail.com</p>
-      </a>
-    </div>
-    <div></div>
-  </div>
-  <div>
-    <div class="items-center justify-center flex flex-col">
-      <h1 class="text-3xl font-bold text-neutral-800">Ubicación</h1>
-      <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
-    </div>
-    <div class="w-full pt-2">
-      <div class="">
-        <iframe
-          class="hover:scale-105 transition ease-in-out w-full h-[25rem] lg:h-[30vw] border-0"
-          loading="lazy"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3428.6851080882207!2d-71.25875514774319!3d-30.755345509213036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9691c9a4428c24e5%3A0x6abe2f9fdb30c852!2sMuebleria%20El%20Fiorentino!5e0!3m2!1ses!2sus!4v1737239033392!5m2!1ses!2sus"
-          title="-30.0213625,-71.2559452"
-          aria-label="-30.0213625,-71.2559452"></iframe>
+<section class="section-shell relative overflow-hidden" id="contacto">
+  <!-- Gradient Background Animated -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-amber-50/40 via-orange-50/30 to-rose-50/40"></div>
+  <div class="gradient-bg absolute inset-0 -z-10 opacity-30"></div>
+  
+  <Container class="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
+    <div class="flex h-full flex-col gap-6 fade-in-up">
+      <div class="max-w-2xl">
+        <SectionHeader
+          eyebrow="Contacto"
+          title="Nuestra sucursal en Punitaqui"
+          subtitle="Siempre disponibles para ayudarte con tu proyecto. Escríbenos, llámanos o agenda una visita."
+          align="left"
+        />
+      </div>
+
+      <div class="relative h-full">
+        <!-- Glow Effect -->
+        <div class="absolute inset-0 -z-10 rounded-[26px] bg-gradient-to-br from-orange-200/20 via-amber-200/20 to-rose-200/20 blur-3xl" aria-hidden="true"></div>
+        
+        <div class="contact-card relative flex h-full flex-col gap-6 rounded-[22px] border border-orange-200/40 bg-white/90 p-6 shadow-lg backdrop-blur-sm md:p-7">
+          <div class="space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-orange-600">Datos de contacto</p>
+            <p class="text-base text-gray-700">
+              Conecta directo con el taller o abre el mapa para coordinar tu visita.
+            </p>
+          </div>
+
+          <div class="contact-items space-y-3 rounded-[18px]">
+            {contacts.map((item, index) => (
+              <a
+                class="contact-item group relative flex items-start gap-4 overflow-hidden rounded-xl border border-orange-100/60 bg-gradient-to-br from-white via-orange-50/30 to-amber-50/30 px-5 py-4 shadow-sm transition-all duration-300 hover:border-orange-300/60 hover:shadow-md hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                style={`animation-delay: ${index * 100}ms`}
+              >
+                <!-- Icon with gradient background -->
+                <span class="icon-wrapper relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-orange-200/60 bg-gradient-to-br from-orange-100 via-amber-100 to-rose-100 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:shadow-md group-hover:border-orange-300">
+                  <div class="absolute inset-0 bg-gradient-to-br from-orange-400/0 via-orange-400/0 to-orange-400/0 transition-all duration-300 group-hover:from-orange-400/20 group-hover:via-amber-400/20 group-hover:to-rose-400/20"></div>
+                  <img
+                    src={item.icon}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width="20"
+                    height="20"
+                    class="relative z-10 h-5 w-5 opacity-90 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110"
+                  />
+                </span>
+                
+                <div class="space-y-1">
+                  <p class="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-orange-600/80">{item.label}</p>
+                  <p class="text-base font-semibold leading-snug text-gray-900 transition-colors duration-300 group-hover:text-orange-700">{item.value}</p>
+                </div>
+
+                <!-- Hover shine effect -->
+                <div class="absolute inset-0 -left-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 group-hover:left-full"></div>
+              </a>
+            ))}
+          </div>
+
+          <div class="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:gap-3">
+            <div class="whatsapp-btn-wrapper w-full sm:w-auto">
+              <WhatsAppBtn
+                textBtn="Escríbenos por WhatsApp"
+                class="w-full sm:w-auto min-h-[48px] shadow-md hover:shadow-lg transition-shadow duration-300"
+                style="--btn-py: 0.9rem; --btn-px: 1.2rem;"
+              />
+            </div>
+            <Button
+              label="Cómo llegar"
+              href={mapLink}
+              target="_blank"
+              rel="noreferrer"
+              variant="outline"
+              class="w-full sm:w-auto border-2 border-orange-200 text-orange-700 hover:border-orange-400 hover:bg-orange-50 hover:text-orange-800 shadow-sm hover:shadow-md transition-all duration-300"
+              style="--btn-py: 0.9rem; --btn-px: 1.2rem;"
+            />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="flex h-full flex-col justify-center fade-in-up" style="animation-delay: 200ms">
+      <div class="map-card relative overflow-hidden rounded-[22px] border-2 border-orange-300/60 shadow-xl bg-white lg:max-w-xl self-center w-full">
+        <div class="map-header flex items-center justify-between gap-3 border-b border-orange-100 bg-gradient-to-r from-orange-50/90 via-amber-50/90 to-rose-50/90 px-5 py-4 backdrop-blur-sm">
+          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-orange-700">📍 Ubicación</p>
+          <a
+            href={mapLink}
+            target="_blank"
+            rel="noreferrer"
+            class="group flex items-center gap-1.5 text-sm font-semibold text-orange-600 transition-all duration-300 hover:text-orange-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+          >
+            <span>Abrir en Google Maps</span>
+            <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+        <div class="relative h-[300px] w-full md:h-[380px] lg:h-[420px]">
+          <iframe
+            class="absolute inset-0 h-full w-full border-0"
+            loading="lazy"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3428.6851080882207!2d-71.25875514774319!3d-30.755345509213036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9691c9a4428c24e5%3A0x6abe2f9fdb30c852!2sMuebleria%20El%20Fiorentino!5e0!3m2!1ses!2sus!4v1737239033392!5m2!1ses!2sus"
+            title="Mapa de Mueblería El Fiorentino en Punitaqui"
+            aria-label="Mapa de Mueblería El Fiorentino en Punitaqui"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen=""
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </Container>
 </section>
+
+<style>
+  /* Animated Gradient Background */
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .gradient-bg {
+    background: linear-gradient(
+      135deg,
+      rgba(251, 146, 60, 0.1),
+      rgba(251, 191, 36, 0.1),
+      rgba(251, 113, 133, 0.1),
+      rgba(251, 146, 60, 0.1)
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  /* Fade in up animation */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Contact items stagger animation */
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .contact-item {
+    animation: slide-in-left 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Card hover effect */
+  .contact-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .contact-card:hover {
+    box-shadow: 0 20px 60px -15px rgba(251, 146, 60, 0.3);
+  }
+
+  /* Map card border animation */
+  @keyframes border-rotate {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .map-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    background: linear-gradient(
+      135deg,
+      rgba(251, 146, 60, 0.5),
+      rgba(251, 191, 36, 0.5),
+      rgba(251, 113, 133, 0.5),
+      rgba(251, 146, 60, 0.5)
+    );
+    background-size: 400% 400%;
+    animation: border-rotate 8s ease infinite;
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(8px);
+  }
+
+  /* WhatsApp button pulse effect */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+    }
+  }
+
+  .whatsapp-btn-wrapper:hover :global(button) {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Icon wrapper hover glow */
+  .icon-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 146, 60, 0.4), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .contact-item:hover .icon-wrapper::before {
+    opacity: 1;
+  }
+
+  /* Map header gradient animation */
+  .map-header {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(251, 146, 60, 0.1),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .map-card:hover .map-header::before {
+    transform: translateX(100%);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .contact-item {
+      padding: 1rem;
+    }
+    
+    .icon-wrapper {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+  }
+</style>

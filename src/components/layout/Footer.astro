@@ -1,64 +1,176 @@
 ---
+import WhatsAppBtn from "../button/WhatsAppBtn.astro";
+import Container from "./Container.astro";
 
+const navLinks = [
+  ["mas-pedidos", "Más pedidos"],
+  ["catalogo", "Catálogo"],
+  ["nosotros", "Nosotros"],
+];
+
+const contact = [
+  { label: "Teléfono", value: "+56 9 7406 1736", href: "tel:+56974061736" },
+  {
+    label: "Correo",
+    value: "muebleria.elfiorentino05@gmail.com",
+    href: "mailto:muebleria.elfiorentino05@gmail.com",
+  },
+  {
+    label: "Dirección",
+    value: "Cuesta el Hinojo, Punitaqui, Coquimbo",
+    href: "https://www.google.com/maps?q=Cuesta+el+Hinojo+Punitaqui+Coquimbo",
+  },
+];
 ---
 
-<footer class="bg-neutral-900 min-h-[5rem] mg-20 pb-8 md:pb-0 mt-8">
-  <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-    <div class="sm:flex sm:items-center sm:justify-between">
-      <a
-        href={"/"}
-        class="flex z-50 font-title items-center text-2xl uppercase"
-      >
-        <img alt="logo" class="w-16" src={`/indexImage/Logo.png`} /></a
-      >
-    </div>
-    <div>
-      <ul
-        class="flex gap-5 flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400 pt-5 md:pt-0"
-      >
-        {
-          [
-            ["mas-pedidos", "Mas pedidos"],
-            ["catalogo", "Catalogo"],
-            ["nosotros", "Nosotros"],
-          ].map((nav) => (
-            <li>
-              <a
-                data-info={nav[0]}
-                class="nav-button-h duration-special ease-out hover:ease-in lg:px-0 transition cursor-pointer "
-                href={`#${nav[1]}`}
-              >
-                {nav[1]}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="pt-3 flex gap-3 items-center">
-        <p class="font-title text-white font-bold uppercase">
-          Síguenos en redes sociales
+<footer class="bg-ink text-white">
+  <div class="section-shell pb-10">
+    <Container class="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+      <div class="space-y-4">
+        <a
+          href="/"
+          class="flex items-center gap-3"
+          aria-label="Volver al inicio"
+        >
+          <img
+            alt="Logo Mueblería El Fiorentino"
+            class="h-14 w-auto"
+            src="/indexImage/Logo.png"
+            loading="lazy"
+            decoding="async"
+            width="112"
+            height="112"
+          />
+          <div class="text-left">
+            <p class="text-xs uppercase tracking-[0.22em] text-white/70">
+              Mueblería
+            </p>
+            <p class="text-lg font-semibold text-accent">El Fiorentino</p>
+          </div>
+        </a>
+        <p class="max-w-xl text-sm text-white/75">
+          Muebles a medida para hogares, empresas e instituciones en la Región
+          de Coquimbo. Diseño, fabricación e instalación con terminaciones
+          profesionales.
         </p>
-        <a
-          href={"https://www.instagram.com/muebles_elfiorentino/"}
-          target="_blank"
-          ><img
-            src={"/socialmedia/Instagram.svg"}
-            width={27}
-            height={27}
-            alt="Logo Instagram"
-          /></a
-        >
-        <a
-          href={"https://www.facebook.com/p/Muebler%C3%ADa-El-Fiorentino-100032893551927/?locale=es_LA"}
-          target="_blank"
-          ><img
-            src={"/socialmedia/Facebook.svg"}
-            width={27}
-            height={27}
-            alt="Logo Facebook"
-          /></a
-        >
+        <div class="flex items-center gap-3">
+          <a
+            class="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-white/40 hover:bg-white/10"
+            href="https://www.instagram.com/muebles_elfiorentino/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram de Mueblería El Fiorentino"
+          >
+            <img
+              src="/socialmedia/Instagram.svg"
+              width={18}
+              height={18}
+              alt="Instagram"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <a
+            class="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-white/40 hover:bg-white/10"
+            href="https://www.facebook.com/p/Muebler%C3%ADa-El-Fiorentino-100032893551927/?locale=es_LA"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook de Mueblería El Fiorentino"
+          >
+            <img
+              src="/socialmedia/Facebook.svg"
+              width={18}
+              height={18}
+              alt="Facebook"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <a
+            class="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-white/40 hover:bg-white/10"
+            href="mailto:muebleria.elfiorentino05@gmail.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Correo de contacto"
+          >
+            <img
+              src="/socialmedia/Mail.svg"
+              width={18}
+              height={18}
+              alt="Correo"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </div>
       </div>
-    </div>
+
+      <div class="grid gap-8 sm:grid-cols-2">
+        <div class="space-y-4">
+          <h3
+            class="text-sm font-semibold uppercase tracking-[0.2em] text-white/70"
+          >
+            Mapa del sitio
+          </h3>
+          <ul class="flex flex-col gap-2">
+            {
+              navLinks.map((nav) => (
+                <li>
+                  <a
+                    data-nav-link
+                    data-nav-target={nav[0]}
+                    class="text-sm text-white/85 transition hover:text-accent"
+                    href={`#${nav[0]}`}
+                  >
+                    {nav[1]}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h3
+            class="text-sm font-semibold uppercase tracking-[0.2em] text-white/70"
+          >
+            Contacto
+          </h3>
+          <ul class="flex flex-col gap-2 text-sm text-white/85">
+            {
+              contact.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={
+                      item.href.startsWith("http") ? "noreferrer" : undefined
+                    }
+                    class="transition hover:text-accent"
+                  >
+                    {item.label}: {item.value}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <WhatsAppBtn textBtn="Cotiza por WhatsApp" />
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <div class="border-t border-white/10">
+    <Container
+      class="flex flex-col gap-2 py-4 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>
+        © {new Date().getFullYear()} Mueblería El Fiorentino. Todos los derechos
+        reservados.
+      </p>
+      <p class="text-white/50">
+        Diseño y fabricación en la Región de Coquimbo.
+      </p>
+    </Container>
   </div>
 </footer>

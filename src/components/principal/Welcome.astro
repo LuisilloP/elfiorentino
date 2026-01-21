@@ -1,40 +1,153 @@
 ---
+import Button from "../button/Button.astro";
 import WhatsAppBtn from "../button/WhatsAppBtn.astro";
+import Container from "../layout/Container.astro";
+
+const badges = [
+  "+20 años de experiencia",
+  "Región de Coquimbo",
+  "Muebles a medida",
+];
+const processItems = [
+  {
+    title: "Diseño guiado",
+    detail: "Moodboards, selección de tonos y plano preliminar en 48h.",
+  },
+  {
+    title: "Fabricación controlada",
+    detail: "Taller propio y control de calidad por módulo.",
+  },
+  {
+    title: "Instalación coordinada",
+    detail: "Montaje limpio, ajustes finos y soporte post venta.",
+  },
+];
 ---
 
-<section class="font-barlow">
+<section
+  class="relative isolate overflow-hidden min-h-[88vh] lg:min-h-[calc(100vh-56px)]"
+>
+  <picture class="absolute inset-0 z-0">
+    <source srcset="/indexImage/WelcomeImage.webp" type="image/webp" />
+    <img
+      src="/indexImage/WelcomeImage.webp"
+      alt="Muebles a medida de Mueblería El Fiorentino"
+      class="h-full w-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      width="1920"
+      height="1080"
+    />
+  </picture>
+
   <div
-    class="relative w-[100vw] h-[35rem] lg:h-[45rem] flex flex-col justify-center px-[10%]"
+    class="absolute inset-0 z-10 pointer-events-none"
+    style="
+      background:
+        linear-gradient(112deg, rgba(10, 8, 6, 0.82) 0%, rgba(10, 8, 6, 0.74) 26%, rgba(12, 10, 8, 0.38) 50%, rgba(14, 12, 10, 0.12) 72%, rgba(16, 14, 12, 0) 90%),
+        radial-gradient(circle at 24% 34%, rgba(0, 0, 0, 0.5), transparent 58%);
+      mask-image: linear-gradient(to bottom, black 0%, black 74%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 74%, transparent 100%);
+    "
+    aria-hidden="true"
   >
-    {/* Capa de fondo con opacidad */}
-    <div class="absolute inset-0 z-10 bg-black bg-opacity-70"></div>
+  </div>
+  <div
+    class="absolute -right-40 -top-32 z-10 h-[420px] w-[420px] rounded-full bg-white/12 blur-3xl"
+  >
+  </div>
 
-    {/* Contenido de texto */}
-    <div class="relative z-20 text-white xl:w-[800px]">
-      <div class="flex flex-col gap-10">
-        <div class="">
-          <h1 class="text-5xl md:text-7xl text-white font-bold md:font-medium">
-            Muebleria el Fiorentino
-          </h1>
-          <h2 class="pt-5 text-xl md:text-3xl text-white font-medium">
-            En la cuarta región diseñamos muebles únicos para transformar tu
-            hogar o empresa
-          </h2>
-          <h3 class="pt-5 text-base md:text-lg text-white">
-            Muebles personalizados con materiales de alta calidad
-          </h3>
+  <div
+    class="relative z-20 section-shell"
+    style="--section-padding: clamp(72px, 9vw, 124px); padding-top: clamp(112px, 12vw, 168px); padding-bottom: clamp(88px, 10vw, 142px);"
+  >
+    <Container class="flex flex-col gap-12 lg:gap-14">
+      <div class="max-w-5xl space-y-6 text-white lg:space-y-7">
+        <p
+          class="text-sm uppercase tracking-[0.28em] text-white/70 reveal-on-scroll"
+        >
+          Muebles a medida
+        </p>
+        <h1
+          class="text-heading max-w-[720px] text-[clamp(2.35rem,3.9vw,3.95rem)] font-semibold leading-[1.04] drop-shadow-[0_22px_48px_rgba(0,0,0,0.46)] reveal-on-scroll reveal-delay-100"
+        >
+          Muebles a medida que elevan tus espacios
+        </h1>
+        <p
+          class="max-w-2xl text-[clamp(1.02rem,1.35vw,1.16rem)] leading-relaxed text-white/90 md:max-w-[720px] reveal-on-scroll reveal-delay-200"
+        >
+          Diseñamos y fabricamos cocinas, clósets y mobiliario personalizado con
+          materiales de alta calidad y un equipo que te acompaña en cada
+          decisión.
+        </p>
 
-          <WhatsAppBtn />
+        <div
+          class="flex flex-wrap gap-2.5 pt-1 reveal-on-scroll reveal-delay-300"
+        >
+          {
+            badges.map((badge) => (
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/12 px-3.5 py-2 text-sm font-medium text-white/90 shadow-[0_14px_38px_rgba(0,0,0,0.28)] backdrop-blur-md">
+                {badge}
+              </span>
+            ))
+          }
+        </div>
+
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 reveal-on-scroll reveal-delay-300"
+        >
+          <WhatsAppBtn
+            textBtn="Cotiza por WhatsApp"
+            class="btn-premium w-full min-h-[54px] sm:w-auto transition-transform duration-200 hover:scale-[1.03]"
+            style="--btn-py: 1rem; --btn-px: 1.6rem;"
+          />
+          <Button
+            label="Ver catálogo"
+            href="#catalogo"
+            variant="outline"
+            class="btn-outline-light w-full min-h-[54px] sm:w-auto border-white/60 bg-white/12 backdrop-blur-md"
+            style="--btn-py: 1rem; --btn-px: 1.5rem;"
+          />
         </div>
       </div>
-    </div>
 
-    <div class="absolute inset-0 z-0 bg-fixed bg-cover bg-welcome bg-bottom">
-    </div>
+      <div class="relative">
+        <div
+          class="absolute inset-0 -z-10 rounded-[28px] bg-white/6 blur-3xl reveal-on-scroll reveal-delay-500"
+        >
+        </div>
+        <div
+          class="relative overflow-hidden rounded-[24px] border border-white/14 bg-[rgba(10,8,6,0.55)] p-4 text-white shadow-[0_22px_70px_rgba(0,0,0,0.36)] backdrop-blur-[14px] sm:p-5 md:p-6 reveal-on-scroll reveal-delay-500"
+        >
+          <div
+            class="absolute inset-0 pointer-events-none bg-gradient-to-r from-white/12 via-white/6 to-white/10"
+          >
+          </div>
+          <div class="relative grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {
+              processItems.map((step, index) => (
+                <div class="group flex items-start gap-4 rounded-2xl border border-white/16 bg-white/10 px-3.5 py-3.5 text-white shadow-[0_10px_36px_rgba(0,0,0,0.26)] transition duration-200 hover:border-white/26 hover:bg-white/14">
+                  <div class="flex h-11 w-11 items-center justify-center rounded-full border border-accent/60 bg-white/20 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(0,0,0,0.26)]">
+                    0{index + 1}
+                  </div>
+                  <div class="space-y-1.5">
+                    <p class="text-[0.72rem] uppercase tracking-[0.22em] text-white/78">
+                      Paso {index + 1}
+                    </p>
+                    <p class="text-base font-semibold leading-tight text-white">
+                      {step.title}
+                    </p>
+                    <p class="text-sm leading-relaxed text-white/90">
+                      {step.detail}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </Container>
   </div>
 </section>
-<style>
-  .bg-welcome {
-    background-image: url("indexImage/WelcomeImage.webp");
-  }
-</style>

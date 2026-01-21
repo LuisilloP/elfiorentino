@@ -1,90 +1,172 @@
 ---
+import Container from "../layout/Container.astro";
+import SectionHeader from "../layout/SectionHeader.astro";
+import ProductCard from "../products/ProductCard.astro";
+
 import {
   dataCompanyCatalog,
   dataHomeCatalog,
   dataHomeTwoCatalog,
 } from "../../services/getProducts";
-import ProductCard from "../products/ProductCard.astro";
+
+const categories = [
+  {
+    id: "hogar",
+    label: "Hogar",
+    key: "HI",
+    description: "Muebles listos para acompañar tu día a día.",
+    items: dataHomeCatalog,
+  },
+  {
+    id: "cocina-closet",
+    label: "Cocina / Closet",
+    key: "CC",
+    description: "Soluciones a medida para optimizar tus espacios.",
+    items: dataHomeTwoCatalog,
+  },
+  {
+    id: "empresas",
+    label: "Instituciones y empresas",
+    key: "IE",
+    description: "Proyectos profesionales con foco en durabilidad y detalle.",
+    items: dataCompanyCatalog,
+  },
+];
+
+const filters = [
+  { key: "all", label: "Todo" },
+  { key: "HI", label: "Hogar" },
+  { key: "CC", label: "Cocina / Closet" },
+  { key: "IE", label: "Empresas" },
+];
 ---
 
-<section id="catalogo" class="xl:w-[1200px] m-auto font-barlow px-5 pt-8">
-  <div class="items-center justify-center flex flex-col">
-    <h1 class="text-3xl font-bold text-neutral-800">Catalogo</h1>
-    <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
-  </div>
-  <div>
-    <div>
-      <h1 class="text-2xl pt-3 font-semibold text-blue-500">Hogar</h1>
-      <div
-        class="pt-4 lg:px-0 grid grid-cols-1 lg:grid-cols-4 md:gap-5"
-        id="container-more-request"
-      >
-        {
-          dataHomeCatalog.map((product) => {
-            const photos = product.photos as any;
-            return (
-              <ProductCard
-                name={product.name}
-                slug={product.slug}
-                id={product.id}
-                price={product.price}
-                photos={photos}
-                section="HI"
-              />
-            );
-          })
-        }
-      </div>
+<section id="catalogo" class="section-shell bg-surface">
+  <Container class="flex flex-col gap-8">
+    <div class="reveal-on-scroll">
+      <SectionHeader
+        eyebrow="Colección completa"
+        title="Catálogo"
+        subtitle="Organizamos el catálogo en categorías claras para que encuentres rápido el mueble que necesitas."
+      />
     </div>
-    <div>
-      <h1 class="text-3xl pt-3 font-semibold text-blue-500">Cocina / Closet</h1>
-      <div
-        class="pt-4 lg:px-0 grid grid-cols-1 lg:grid-cols-2 md:gap-5"
-        id="container-more-request"
-      >
-        {
-          dataHomeTwoCatalog.map((product) => {
-            const photos = product.photos as any;
-            return (
-              <ProductCard
-                id={product.id}
-                name={product.name}
-                slug={product.slug}
-                price={product.price}
-                photos={photos}
-                section="CC"
-              />
-            );
-          })
-        }
-      </div>
-    </div>
-    <div>
-      <div>
-        <h1 class="text-2xl pt-3 font-semibold text-blue-500">
-          Instituciones y empresas
-        </h1>
-        <div
-          class="pt-4 lg:px-0 grid grid-cols-1 lg:grid-cols-3 md:gap-5"
-          id="container-more-request"
+
+    <div
+      class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between reveal-on-scroll reveal-delay-100"
+    >
+      <div class="relative w-full lg:max-w-md">
+        <input
+          id="product-search"
+          type="search"
+          placeholder="Buscar producto"
+          class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-ink shadow-card placeholder:text-muted/70 focus:border-ink focus:outline-none focus:ring-2 focus:ring-accent/50 transition"
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          class="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted/80"
         >
-          {
-            dataCompanyCatalog.map((product) => {
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 5.65 5.65a7.5 7.5 0 0 0 10.6 10.6Z"
+          ></path>
+        </svg>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        {
+          filters.map((filter) => (
+            <button
+              type="button"
+              data-filter-chip={filter.key}
+              class={`rounded-full border border-border px-4 py-2 text-sm font-semibold transition ${
+                filter.key === "all" ? "bg-ink text-white" : "bg-sand text-ink"
+              }`}
+              aria-pressed={filter.key === "all"}
+            >
+              {filter.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      categories.map((category) => (
+        <section
+          id={category.id}
+          class="flex flex-col gap-4 reveal-on-scroll reveal-delay-200"
+        >
+          <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-3">
+            <span class="badge label-chip text-sm">{category.label}</span>
+            <p class="text-sm text-muted">{category.description}</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {category.items.map((product) => {
               const photos = product.photos as any;
               return (
                 <ProductCard
                   id={product.id}
-                  slug={product.slug}
                   name={product.name}
+                  slug={product.slug}
                   price={product.price}
                   photos={photos}
-                  section="IE"
+                  section={category.key}
                 />
               );
-            })
-          }
-        </div>
-      </div>
-    </div>
-  </div>
+            })}
+          </div>
+        </section>
+      ))
+    }
+  </Container>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("product-search");
+      const chips = Array.from(document.querySelectorAll("[data-filter-chip]"));
+      const cards = Array.from(
+        document.querySelectorAll("[data-product-card]"),
+      );
+      let activeCategory = "all";
+
+      const updateFilters = () => {
+        const query = (searchInput?.value || "")
+          .toString()
+          .toLowerCase()
+          .trim();
+
+        cards.forEach((card) => {
+          const name = (card.getAttribute("data-name") || "").toLowerCase();
+          const section = card.getAttribute("data-section") || "";
+          const matchesText = name.includes(query);
+          const matchesCategory =
+            activeCategory === "all" || section === activeCategory;
+
+          card.classList.toggle("hidden", !(matchesText && matchesCategory));
+        });
+      };
+
+      chips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          activeCategory = chip.getAttribute("data-filter-chip") || "all";
+          chips.forEach((c) => {
+            const isActive = c === chip;
+            c.classList.toggle("bg-ink", isActive);
+            c.classList.toggle("text-white", isActive);
+            c.classList.toggle("bg-sand", !isActive);
+            c.classList.toggle("text-ink", !isActive);
+            c.setAttribute("aria-pressed", isActive.toString());
+          });
+          updateFilters();
+        });
+      });
+
+      searchInput?.addEventListener("input", updateFilters);
+      updateFilters();
+    });
+  </script>
 </section>

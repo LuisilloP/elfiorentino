@@ -1,35 +1,85 @@
 ---
+import Button from "../button/Button.astro";
+import Container from "../layout/Container.astro";
+import SectionHeader from "../layout/SectionHeader.astro";
 
+const highlights = [
+  "Más de 20 años diseñando y fabricando mobiliario a medida.",
+  "Producción en melamina y terminaciones profesionales",
+  "Instalación y despacho coordinado en la Región de Coquimbo.",
+  "Equipos y materiales listos para proyectos residenciales y corporativos.",
+];
 ---
 
-<section
-  class="lg:pt-20 flex flex-col lg:flex-row lg:max-w-[1200px] m-auto px-5 g:px-0 font-barlow gap-4"
-  id="nosotros"
->
-  <div class="border-solid border-2 border-sky-300 rounded-sm">
-    <img
-      src="indexImage/About.jpg"
-      class="relative lg:right-10 lg:bottom-10 w-[100%] min-h-[350px] lg:h-[600px] rounded-sm"
-      alt="nosotros-image"
-    />
-  </div>
-
-  <div class="flex flex-col gap-2 lg:w-[50%]">
-    <div class="justify-center flex flex-col">
-      <h1 class="text-3xl font-bold text-neutral-800">Nosotros</h1>
-      <hr class="w-48 h-1 bg-blue-400 border-0 rounded-sm my-2" />
+<section class="section-shell surface-quiet" id="nosotros">
+  <Container class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+    <div class="order-2 flex flex-col gap-5 lg:order-1 reveal-on-scroll">
+      <SectionHeader
+        eyebrow="Nosotros"
+        title="El Fiorentino"
+        subtitle="Una mueblería familiar con enfoque profesional y acompañamiento de principio a fin."
+        align="left"
+      />
+      <p class="text-base text-muted leading-relaxed">
+        En Mueblería El Fiorentino trabajamos cada proyecto como único. Desde el
+        diseño y la selección de materiales, hasta la instalación y el soporte,
+        cuidamos cada detalle para que tu cocina, clóset o mobiliario
+        institucional se vea impecable y funcione todos los días.
+      </p>
+      <ul class="grid gap-2 text-sm text-ink">
+        {
+          highlights.map((item) => (
+            <li class="flex items-start gap-3">
+              <span
+                class="mt-1 inline-flex h-2 w-2 rounded-full bg-accent"
+                aria-hidden="true"
+              />
+              <span class="text-muted">{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button label="Ver catálogo" href="#catalogo" variant="dark" />
+        <Button
+          label="Cotizar"
+          href="https://wa.me/56974061736?text=Hola, quiero cotizar un mueble a medida."
+          target="_blank"
+          rel="noreferrer"
+          variant="whatsapp"
+          class="sm:w-auto"
+          style="--btn-py: 0.8rem; --btn-px: 1.2rem;"
+        />
+      </div>
     </div>
-    <h4 class="text-neutral-800 font-medium">El Fiorentino</h4>
-    <p class="text-neutral-500">
-      En Mueblería El Fiorentino, contamos con más de 20 años de experiencia en
-      el diseño, confección y armado de mobiliario en línea plana. Atendemos
-      tanto a particulares como a instituciones y empresas, ofreciendo
-      soluciones personalizadas y de alta calidad. Ubicados en Cuesta El Hinojo,
-      Punitaqui, trabajamos en toda la Cuarta Región, llevando nuestros muebles
-      a hogares, oficinas y negocios que buscan funcionalidad, diseño y
-      durabilidad. Nuestro compromiso es brindar productos con acabados de
-      excelencia y adaptados a las necesidades de cada cliente. ¡Confía en
-      nuestra experiencia para dar vida a tus espacios!
-    </p>
-  </div>
+
+    <div class="order-1 lg:order-2 reveal-on-scroll reveal-delay-200">
+      <div class="card-bleed relative overflow-hidden shadow-soft">
+        <img
+          src="/indexImage/About.jpg"
+          class="h-full w-full max-h-[520px] object-cover"
+          alt="Equipo de Mueblería El Fiorentino trabajando"
+          loading="lazy"
+          decoding="async"
+          width="1200"
+          height="900"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/45 via-black/20 to-transparent"
+        >
+        </div>
+        <div
+          class="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-lg border border-white/10 bg-white/15 px-4 py-3 text-white backdrop-blur-sm"
+        >
+          <div>
+            <p class="text-xs uppercase tracking-[0.22em] text-white/75">
+              Ubicación
+            </p>
+            <p class="text-sm font-semibold">Punitaqui, Región de Coquimbo</p>
+          </div>
+          <span class="text-sm font-semibold text-accent">+20 años</span>
+        </div>
+      </div>
+    </div>
+  </Container>
 </section>

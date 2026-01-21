@@ -1,16 +1,20 @@
 ---
 const { type, name } = Astro.props;
+const inputId =
+  typeof name === "string"
+    ? `input-${name.toLowerCase().replace(/\s+/g, "-")}`
+    : "input-custom";
 ---
 
 <div class="relative">
   <input
     type={type}
     name={name}
-    required="true"
+    required
     min={name == "Cajones" ? "0" : "1"}
     max="1000"
-    id="hs-floating-underline-input-number"
-    class="peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none
+    id={inputId}
+    class="peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b border-x-transparent border-border text-base placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-accent focus:ring-0 focus:outline-none transition-all duration-150 disabled:opacity-50 disabled:pointer-events-none
   focus:pt-6
   focus:pb-2
   [&:not(:placeholder-shown)]:pt-6
@@ -18,15 +22,16 @@ const { type, name } = Astro.props;
     placeholder="20"
   />
   <label
-    for="hs-floating-underline-input-number"
-    class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-gray-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none
+    for={inputId}
+    class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-150 border border-transparent origin-[0_0] text-muted peer-disabled:opacity-50 peer-disabled:pointer-events-none
     peer-focus:scale-90
     peer-focus:translate-x-0.5
     peer-focus:-translate-y-1.5
-    peer-focus:text-gray-500
+    peer-focus:text-ink
     peer-[:not(:placeholder-shown)]:scale-90
     peer-[:not(:placeholder-shown)]:translate-x-0.5
-    peer-[:not(:placeholder-shown)]:-translate-y-1.5"
+    peer-[:not(:placeholder-shown)]:-translate-y-1.5
+    peer-[:not(:placeholder-shown)]:text-ink"
     >{name}</label
   >
 </div>

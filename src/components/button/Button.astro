@@ -1,0 +1,59 @@
+---
+type Variant = "dark" | "outline" | "ghost" | "whatsapp";
+
+interface Props {
+  label: string;
+  href?: string;
+  variant?: Variant;
+  class?: string;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+  type?: "button" | "submit" | "reset";
+  style?: string;
+}
+
+const {
+  label,
+  href,
+  variant = "dark",
+  class: className = "",
+  target,
+  rel,
+  ariaLabel,
+  type = "button",
+  style,
+} = Astro.props;
+
+const variantClass =
+  variant === "outline"
+    ? "btn-outline"
+    : variant === "ghost"
+      ? "btn-ghost"
+      : variant === "whatsapp"
+        ? "btn-whatsapp"
+        : "btn-dark";
+
+const relValue = rel ?? (target === "_blank" ? "noreferrer" : undefined);
+const baseClass = `btn ${variantClass} ${className}`.trim();
+const labelValue = ariaLabel ?? label;
+---
+
+{href ? (
+  <a
+    class={baseClass}
+    href={href}
+    target={target}
+    rel={relValue}
+    aria-label={labelValue}
+    style={style}
+  >
+    <slot name="icon" />
+    <span>{label}</span>
+  </a>
+) : (
+  <button class={baseClass} type={type} aria-label={labelValue} style={style}>
+    <slot name="icon" />
+    <span>{label}</span>
+  </button>
+)}

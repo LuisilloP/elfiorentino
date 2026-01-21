@@ -2,7 +2,6 @@ import { db, Products } from "astro:db";
 
 // https://astro.build/db/seed
 export default async function seed() {
-  // TODO
   await db.insert(Products).values([
     {
       id: 1,
@@ -116,13 +115,11 @@ export default async function seed() {
     },
     {
       id: 8,
-
       name: "mesones",
       slug: "mesones",
       price: 222222,
       description:
         "Optimiza tu espacio de trabajo con un mesón diseñado a medida, ideal para empresas e instituciones. Fabricado con materiales de alta calidad, como melamina o madera, este mesón se adapta a tus necesidades específicas, ofreciendo opciones personalizables en tamaño, color y distribución",
-
       photos: {
         urls: [
           "meson/meson_one.jpg",
@@ -140,7 +137,8 @@ export default async function seed() {
       name: "closet estacionario",
       slug: "closet-estacionario",
       price: 222222,
-      description: "",
+      description:
+        "Closet estacionario personalizado para maximizar tu almacenamiento con terminaciones a medida.",
       photos: {
         urls: ["closetEmpresa/closetEmpresa_one.jpg"],
       },
@@ -154,7 +152,7 @@ export default async function seed() {
       slug: "estante-repisero",
       price: 222222,
       description:
-        " Fabricado con materiales de alta calidad, como melamina o madera, este estante ofrece una solución funcional y elegante para exhibir libros, objetos decorativos o almacenar lo que necesites. Personaliza su tamaño, color y distribución para adaptarlo a tu estilo y espacio.",
+        "Fabricado con materiales de alta calidad, como melamina o madera, este estante ofrece una solución funcional y elegante para exhibir libros, objetos decorativos o almacenar lo que necesites. Personaliza su tamaño, color y distribución para adaptarlo a tu estilo y espacio.",
       photos: {
         urls: ["repisero/repisero_one.jpg"],
       },

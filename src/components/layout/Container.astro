@@ -1,0 +1,16 @@
+---
+type TagName = keyof HTMLElementTagNameMap;
+
+interface Props {
+  as?: TagName;
+  class?: string;
+  id?: string;
+}
+
+const { as = "div", class: className = "", id } = Astro.props;
+const Tag = as as TagName;
+---
+
+<Tag id={id} class={`container-shell ${className}`.trim()}>
+  <slot />
+</Tag>

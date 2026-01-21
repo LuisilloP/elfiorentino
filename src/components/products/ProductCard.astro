@@ -1,34 +1,96 @@
 ---
-// Props que recibirá el componente
-// export interface ProductCardProps {
-//   name: string;
-//   price: number;
-//   photos: {
-//     urls: string[];
-//   };
-// }
-
 const { name, price, photos, section, id, slug } = Astro.props;
-const formater = Intl.NumberFormat("es-ES");
+
+const formatter = new Intl.NumberFormat("es-CL");
+const imageSrc =
+  photos?.urls?.[0] != null ? `/productImage/${photos.urls[0]}` : "/indexImage/Logo.png";
+const productNameKey = name.toLowerCase();
+
+const sectionLabel =
+  section === "MR"
+    ? "Más pedidos"
+    : section === "HI"
+      ? "Hogar"
+      : section === "CC"
+        ? "Cocina / Closet"
+        : section === "IE"
+          ? "Empresas"
+          : "Catálogo";
+
+const isEnterprise = section === "IE";
+const priceSuffix = id === 2 || id === 3 ? " - por metro lineal" : "";
+const priceLabel = isEnterprise
+  ? "Valor personalizado para tu empresa"
+  : `Desde ${formatter.format(price)}${priceSuffix}`;
+const whatsappText = `Hola, me interesa ${name}. ¿Podemos coordinar una cotización?`;
+const whatsappHref = `https://wa.me/56974061736?text=${encodeURIComponent(whatsappText)}`;
+const displayName = name[0].toUpperCase() + name.substring(1);
 ---
 
-<a
-  class="font-bold cursor-pointer hover:scale-105 ease-in-out duration-200"
-  href={`/products/${slug}`}
+<article
+  class="surface-card group flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-soft"
+  data-product-card
+  data-name={productNameKey}
+  data-section={section ?? ""}
 >
-  <img
-    class={`w-[100vw] h-[85vw] rounded-md ${section == "MR" ? " lg:h-[400px] " : section == "CC" ? "lg:w-[100vw] lg:h-[450px]" : section == "IE" ? "lg:h-[320px]" : "lg:h-[280px]"}`}
-    src={"productImage/" + photos.urls[0]}
-    alt={name}
-  />
-  <h3 class="text-neutral-500 text-xl pt-2">
-    {name[0].toUpperCase() + name.substring(1)}
-  </h3>
-  <h3 class="text-neutral-800">
-    Desde: ${
-      formater.format(price) +
-        `${id == 2 || id == 3 ? " (por metro lineal)" : ""}`
-    }
-  </h3>
-  <hr class="h-[.5px] my-4 bg-gray-400 border-0 md:hidden" />
-</a>
+  <a href={`/products/${slug}`} class="relative block overflow-hidden">
+    <div class="aspect-[4/3] bg-sand">
+      <img
+        class="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.05]"
+        src={imageSrc}
+        alt={name}
+        loading="lazy"
+        decoding="async"
+        fetchpriority="low"
+        width="1200"
+        height="900"
+        sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 28vw, (min-width: 768px) 45vw, 100vw"
+      />
+    </div>
+    <div class="absolute left-4 top-4 flex items-center gap-2">
+      <span class="badge text-xs uppercase tracking-[0.18em]">{sectionLabel}</span>
+    </div>
+  </a>
+
+  <div class="flex flex-col gap-3 p-4 lg:p-5">
+    <div class="flex flex-col gap-1">
+      <a
+        href={`/products/${slug}`}
+        class="flex items-start gap-2 text-ink transition-colors hover:text-ink/80"
+      >
+        <h3 class="text-xl font-semibold leading-tight">{displayName}</h3>
+      </a>
+      <p class="text-sm text-muted">{priceLabel}</p>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <a
+        href={`/products/${slug}`}
+        class="inline-flex items-center gap-2 text-sm font-semibold text-ink"
+        aria-label={`Ver detalles de ${name}`}
+      >
+        <span>Ver detalles</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          class="h-4 w-4"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
+        </svg>
+      </a>
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noreferrer"
+        class="btn btn-outline text-sm"
+        style="--btn-py: 0.65rem; --btn-px: 1rem;"
+        aria-label={`Cotizar ${name} por WhatsApp`}
+      >
+        Cotizar
+      </a>
+    </div>
+  </div>
+</article>

@@ -1,20 +1,36 @@
 ---
+import Button from "./Button.astro";
+
 interface btnProps {
-  productName: string;
+  productName?: string;
   textBtn: string;
+  class?: string;
+  style?: string;
 }
-const { productName, textBtn } = Astro.props;
+
+const { productName, textBtn, class: className = "", style } = Astro.props;
+
+const message = productName
+  ? `Hola, quiero cotizar ${productName}.`
+  : "Hola, estoy interesado en sus servicios.";
+const href = `https://wa.me/56974061736?text=${encodeURIComponent(message)}`;
 ---
 
-<a
-  class="flex w-[100%] md:w-[30rem] bg-[#25d366] rounded font-nerko text-white justify-center items-center mt-5"
-  href={`https://wa.me/56974061736?text=Hola, estoy interesado en sus servicios.`}
+<Button
+  href={href}
   target="_blank"
+  rel="noreferrer"
+  label={textBtn || "Hablemos por WhatsApp"}
+  variant="whatsapp"
+  class={`w-full sm:w-auto ${className}`.trim()}
+  style={style}
 >
   <img
-    class="w-10 h-10"
+    slot="icon"
+    class="w-5 h-5"
     src="/socialmedia/whatsappButton.svg"
-    alt="whatsApp-image"
+    alt="WhatsApp"
+    loading="lazy"
+    decoding="async"
   />
-  {`${textBtn ? textBtn : "Hablemos por WhatsApp"}`}
-</a>
+</Button>
