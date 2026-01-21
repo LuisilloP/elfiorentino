@@ -12,20 +12,28 @@ const alignment =
 ---
 
 <div class={`flex flex-col gap-3 ${alignment}`}>
-  {eyebrow && (
-    <span class="text-sm uppercase tracking-[0.24em] text-muted font-semibold">
-      {eyebrow}
-    </span>
-  )}
+  {
+    eyebrow && (
+      <span class="text-sm uppercase tracking-[0.24em] text-muted font-semibold">
+        {eyebrow}
+      </span>
+    )
+  }
   <div class={`flex flex-col gap-2 ${alignment}`}>
-    <h2 class="text-heading text-3xl md:text-4xl font-semibold text-ink leading-[1.1]">
+    <h2
+      class="text-heading text-xl sm:text-3xl md:text-4xl font-semibold text-ink leading-[1.1]"
+    >
       {title}
     </h2>
-    <div class={`divider ${align === "center" ? "" : "self-start"}`} aria-hidden="true"></div>
-    {subtitle && (
-      <p class="text-base md:text-lg text-ink-soft max-w-2xl">
-        {subtitle}
-      </p>
-    )}
+    <div
+      class={`divider ${align === "center" ? "" : "self-start"}`}
+      aria-hidden="true"
+    >
+    </div>
+    {
+      subtitle && (
+        <p class="text-base md:text-lg text-ink-soft max-w-2xl">{subtitle}</p>
+      )
+    }
   </div>
 </div>
