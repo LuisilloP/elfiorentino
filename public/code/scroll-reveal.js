@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const observerOptions = {
     root: null,
-    rootMargin: '0px 0px -12% 0px',
-    threshold: [0, 0.08, 0.2],
+    rootMargin: '8% 0px -6% 0px',
+    threshold: [0, 0.04, 0.12, 0.2],
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -40,24 +40,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
+  const revealVisibleNow = () => {
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    revealElements.forEach((element) => {
+      if (element.dataset.revealed === 'true') return;
+      const rect = element.getBoundingClientRect();
+      const isVisible =
+        rect.top < viewportHeight * 0.98 &&
+        rect.bottom > 0 &&
+        rect.left < viewportWidth &&
+        rect.right > 0;
+
+      if (isVisible) {
+        revealElement(element);
+        observer.unobserve(element);
+      }
+    });
+  };
+
   const hydrateInitial = () => {
     revealElements.forEach((element) => observer.observe(element));
 
     // Safari/iOS sometimes delays IO on first paint; ensure above-the-fold items animate
     requestAnimationFrame(() => {
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      revealElements.forEach((element) => {
-        if (element.dataset.revealed === 'true') return;
-        const rect = element.getBoundingClientRect();
-        const isVisible = rect.top < viewportHeight * 0.92 && rect.bottom > 0;
-        if (isVisible) {
-          revealElement(element);
-          observer.unobserve(element);
-        }
-      });
+      revealVisibleNow();
+      setTimeout(revealVisibleNow, 140);
     });
   };
 
   // Defer observation until after the first paint to avoid instant visibility on fast devices
   requestAnimationFrame(hydrateInitial);
+  window.addEventListener('load', () => setTimeout(revealVisibleNow, 90));
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) setTimeout(revealVisibleNow, 90);
+  });
 });

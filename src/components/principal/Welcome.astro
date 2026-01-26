@@ -27,7 +27,7 @@ const processItems = [
 <section
   class="relative isolate overflow-hidden min-h-[88vh] lg:min-h-[calc(100vh-56px)]"
 >
-  <picture class="absolute inset-0 z-0">
+  <picture class="absolute inset-0 z-0 hero-media">
     <source srcset="/indexImage/WelcomeImage.webp" type="image/webp" />
     <img
       src="/indexImage/WelcomeImage.webp"
@@ -41,18 +41,7 @@ const processItems = [
     />
   </picture>
 
-  <div
-    class="absolute inset-0 z-10 pointer-events-none"
-    style="
-      background:
-        linear-gradient(112deg, rgba(10, 8, 6, 0.82) 0%, rgba(10, 8, 6, 0.74) 26%, rgba(12, 10, 8, 0.38) 50%, rgba(14, 12, 10, 0.12) 72%, rgba(16, 14, 12, 0) 90%),
-        radial-gradient(circle at 24% 34%, rgba(0, 0, 0, 0.5), transparent 58%);
-      mask-image: linear-gradient(to bottom, black 0%, black 74%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 74%, transparent 100%);
-    "
-    aria-hidden="true"
-  >
-  </div>
+  <div class="absolute inset-0 z-10 pointer-events-none hero-overlay" aria-hidden="true"></div>
   <div
     class="absolute -right-40 -top-32 z-10 h-[420px] w-[420px] rounded-full bg-white/12 blur-3xl"
   >
