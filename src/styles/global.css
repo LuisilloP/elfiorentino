@@ -615,14 +615,19 @@ body.mobile-menu-open {
 /* Scroll Reveal Animations */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translate3d(0, 30px, 0);
+  -webkit-transform: translate3d(0, 30px, 0);
   transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), -webkit-transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .reveal-on-scroll.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .reveal-fade-in {
@@ -652,4 +657,14 @@ body.mobile-menu-open {
 
 .reveal-delay-500 {
   transition-delay: 0.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+  }
 }
